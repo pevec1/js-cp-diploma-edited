@@ -1,18 +1,62 @@
-class ApiConnect{
-    constructor(){
-        
-    }
+const createRequest = (options = {}) => {
+  const f = function () {},
+    {
+      method = 'POST',
+      headers = {},
+      success = f,
+      error = f,
+      callback = f,
+      responseType = 'json',
+      async = true,
+      data = ''
+    } = options,
+    xhr = new XMLHttpRequest()
 
-time(hms){
-    let a = hms.split(':');
-    let seconds = (+a[0]) * 60 + (+a[1]); 
-    return Number(seconds);   
+  let url = ApiConnect.URL
+
+  let requestData
+  if (responseType) {
+    xhr.responseType = responseType
+  }
+  xhr.onload = function () {
+    success.call(this, xhr.response)
+    callback.call(this, null, xhr.response)
+  }
+  xhr.onerror = function () {
+    const err = new Error('Request Error')
+    error.call(this, err)
+    callback.call(this, err)
+  }
+
+  //xhr.withCredentials = true;
+
+  requestData = data
+  try {
+    xhr.open(method, url, async)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.send(requestData)
+  } catch (err) {
+    error.call(this, err)
+    callback.call(this, err)
+    return xhr
+  }
+
+  return xhr
 }
 
-/**
+class ApiConnect {
+  constructor () {}
+  static URL = 'https://jscp-diplom.netoserver.ru/'
+  static time (hms) {
+    let a = hms.replace('"', '').replace('"', '').split(':')
+    //console.log(a)
+    return [a[0],a[1]]
+    return Number(seconds)
+  }
+  /**
  * Основная функция для совершения запросов
  * на сервер.
- * */
+
 createRequest(url, data, method, callback){
     let xhr = new XMLHttpRequest()
     let formData = '';
@@ -21,16 +65,16 @@ createRequest(url, data, method, callback){
   console.log(url)
 
     formData = encodeURI(data);
-    console.log(formData); 
+    console.log(formData); // key=value
 
     let res;
   xhr.onreadystatechange = (e) => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           try {
-              //callback(xhr.response)
-              res = xhr.response
-            console.log(res)
+            callback(xhr.response)
+            //  res = xhr.response
+            //console.log(res)
            } catch (err) {
             console.log(err, e)
               callback(err, e)
@@ -49,64 +93,112 @@ createRequest(url, data, method, callback){
     } else {
       xhr.send()
     }
-    return res
+  //  return res
   }
-
-  getList(url,data = 'event=update',method) {
-    let res = 1;
-    return this.createRequest(
-        url ,
-        data,
-        method,
-        function(result){
-            console.log(response)
-            res = result
-           })
-    }
-
-  getConfig(url, data, method){
-    let value1, value2, value3
-       // value1= result.unixTimestamp + this.time(result.seances.result[3].seance_time) + Number(result.seances.result[3].seance_start)
-
-    data = `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`
-    return this.createRequest(
-        url,
-        data,
-        method,
-        function(result){
-            console.log(result)
-           })
-  }
-}  
-
-let request = new ApiConnect()
-  // здесь перечислены все возможные параметры для функции
- console.log(request.createRequest(
-    'https://jscp-diplom.netoserver.ru/', // адрес
-  'event=update', //
-  'POST', // метод запроса
-function(result){
- console.log(result)
-})
- )
+ * */
+static res (res1) {
+  //let x = JSON.parse(res1)
+        console.log(res1)
+        return Array.from(res1)
+   }
   
-let list = request.getList(
-    'https://jscp-diplom.netoserver.ru/', // адрес
-    'event=update', //
-    'POST'
-)
+   static getList ( callback = f => f) {
+    return createRequest({
+      method: 'POST',
+      responseType: 'json',
+      async: true,
+      data: 'event=update',
+      callback: (err, response) => {
+        if (response&&response.halls&&response.films&&response.seances) {
+          return this.res(JSON.parse(JSON.stringify(response)))
+        }
+        callback.call( this, err, response );
+      }
+    })
+  }
+  static getConfig ( callback = f => f) {
+    return createRequest({
+      method: 'POST',
+      responseType: 'json',
+      async: true,
+      data: 'event=update',
+      callback: (err, response) => {
+        if (response&&response.halls&&response.films&&response.seances) {
+          return this.listConfig(JSON.stringify(response))
+        }
+        callback.call( this, err, response );
+      }
+    })
+  }
+  /*
+  getList() {
+    return this.createRequest(
+      'https://jscp-diplom.netoserver.ru/', // адрес
+      'event=update', //
+      'POST', // метод запроса
+    function(result){
+      return result.seances.result[3].seance_time
+    })
+  }
+*/
+  static runConfig(res1){
+    let x = JSON.parse(res1)
+    console.log(x)
+}
 
-  const str = '2023-04-26';
-  const date = new Date(str);
-  const timestamp = date.getTime();
-  console.log(timestamp); 
-  const unixTimestamp = Math.floor(date.getTime() / 1000);
-console.log(unixTimestamp);
-console.log(request.time('01:00'))
+  static listConfig (res1, callback = f => f) {
+    let x = JSON.parse(res1)
+    const str = '2023-04-26'
+    const date = new Date()
+    const st = String(JSON.stringify(x.seances.result[3].seance_time))
+    const st2 = String(JSON.stringify(x.seances.result[3].seance_start))
+    date.setHours(ApiConnect.time(st)[0]);
+    date.setMinutes(ApiConnect.time(st)[1]);
+    date.setSeconds(0);
+    const timestamp = date.getTime()
+    //console.log(timestamp)
+    const unixTimestamp = Math.floor(date.getTime() / 1000)
+    //console.log(unixTimestamp)
+    //console.log(ApiConnect.time('01:00'))
+    let value1, value2, value3
+        console.log(x)
+    //console.log(st, st2)
+    value1 = unixTimestamp
+    //console.log(value1)
+    value2 = Number(JSON.stringify(x.halls.result[0].hall_id).replace('"','').replace('"',''))
+    //console.log(value2)
+    value3 = Number(JSON.stringify(x.seances.result[3].seance_id).replace('"','').replace('"',''))
+    //console.log(value3)
+    return createRequest({
+      method: 'POST',
+      responseType: 'json',
+      async: true,
+      data: `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`,
+      callback: (err, response) => {
+        if (response) {
+          return this.runConfig(JSON.stringify(response));
+        }
+        callback.call(this, err, response);
+      }
+    })
+  }
+}
 
-console.log(list)
+// здесь перечислены все возможные параметры для функции
+//createRequest()
+ApiConnect.getList()
+let res = []
+res = ApiConnect.res(ApiConnect.getList())
+console.log("res= "+res)
+//ApiConnect.res(JSON.parse(ApiConnect.getList()))[0]
+// console.log(ApiConnect.res())
+// let halls = new ApiConnect()
+///console.log(halls)
+ApiConnect.getConfig()
+//ApiConnect.getConfig()
 
-console.log(list.seances.result[3].seance_time)
+//console.log(ApiConnect.listconfig(ApiConnect.getList()))
+//console.log(list.seances.result[3].seance_time)
 //   request.getConfig(
 //     unixTimestamp + request.time(request.getList().seances.result[3].seance_time) + Number(request.getList().seances.result[3].seance_start),
 //     request.getList().halls.result[0].hall_id,
