@@ -209,8 +209,9 @@ listReserv(res2, callback = f => f) {
       console.log(value3)
     }
     console.log('я не знаю как сюда поместить результат колбека this.listConfig(res1, callback)')
-    
-     value4 = '';
+
+    //`hallConfiguration` - Строка - ***html разметка*** которую следует взять со страницы `hall.html` внутри контейнера с классом `conf-step__wrapper`(см разметку).
+     value4 = ''; //?????????????
 
 return createRequest({
       method: 'POST',
