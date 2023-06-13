@@ -45,7 +45,12 @@ const createRequest = (options = {}) => {
 }
 
 class ApiConnect {
-  constructor () {}
+  constructor (value1, value2, value3, value4) {
+    this.value1 = value1
+    this.value2 = value2
+    this.value3 = value3
+    this.value4 = value4
+  }
   static URL = 'https://jscp-diplom.netoserver.ru/'
   static time (hms) {
     let a = hms.replace('"', '').replace('"', '').split(':')
@@ -116,7 +121,7 @@ static res (res1) {
       }
     })
   }
-  static getConfig ( callback = f => f) {
+   getConfig ( callback = f => f) {
     return createRequest({
       method: 'POST',
       responseType: 'json',
@@ -141,61 +146,67 @@ static res (res1) {
     })
   }
 */
-  static runConfig(res1){
-    let x = JSON.parse(res1)
-    console.log(x)
+ runConfig(res1){
+    console.log(JSON.parse(res1))
 }
 
-  static listConfig (res1, callback = f => f) {
-    let x = JSON.parse(res1)
-    const str = '2023-04-26'
-    const date = new Date()
-    const st = String(JSON.stringify(x.seances.result[3].seance_time))
-    const st2 = String(JSON.stringify(x.seances.result[3].seance_start))
-    date.setHours(ApiConnect.time(st)[0]);
-    date.setMinutes(ApiConnect.time(st)[1]);
-    date.setSeconds(0);
-    const timestamp = date.getTime()
-    //console.log(timestamp)
-    const unixTimestamp = Math.floor(date.getTime() / 1000)
-    //console.log(unixTimestamp)
-    //console.log(ApiConnect.time('01:00'))
-    let value1, value2, value3
-        console.log(x)
-    //console.log(st, st2)
-    value1 = unixTimestamp
-    //console.log(value1)
+listConfig (res1, callback = f => f) {
+  let x = JSON.parse(res1)
+  const str = '2023-04-26'
+  const date = new Date()
+  const st = String(JSON.stringify(x.seances.result[3].seance_time))
+  const st2 = String(JSON.stringify(x.seances.result[3].seance_start))
+  date.setHours(ApiConnect.time(st)[0]);
+  date.setMinutes(ApiConnect.time(st)[1]);
+  date.setSeconds(0);
+  const timestamp = date.getTime()
+  //console.log(timestamp)
+  const unixTimestamp = Math.floor(date.getTime() / 1000)
+  //console.log(unixTimestamp)
+  //console.log(ApiConnect.time('01:00'))
+  let value1, value2, value3
+  value1 = this.value1
+  console.log(value1)
+  value2 = this.value2
+  console.log(value2)
+  value3 = this.value3
+  console.log(value3)
+    console.log(x)
+  //console.log(st, st2)
+  if (value1 === undefined || value2 === undefined || value3 === undefined){
+      value1 = unixTimestamp
+      console.log(value1)
     value2 = Number(JSON.stringify(x.halls.result[0].hall_id).replace('"','').replace('"',''))
-    //console.log(value2)
+    console.log(value2)
     value3 = Number(JSON.stringify(x.seances.result[3].seance_id).replace('"','').replace('"',''))
-    //console.log(value3)
-    return createRequest({
-      method: 'POST',
-      responseType: 'json',
-      async: true,
-      data: `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`,
-      callback: (err, response) => {
-        if (response) {
-          return this.runConfig(JSON.stringify(response));
-        }
-        callback.call(this, err, response);
-      }
-    })
+    console.log(value3)
   }
+  return createRequest({
+    method: 'POST',
+    responseType: 'json',
+    async: true,
+    data: `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`,
+    callback: (err, response) => {
+      if (response) {
+        return this.runConfig(JSON.stringify(response));
+      }
+      callback.call(this, err, response);
+    }
+  })
+}
 }
 
 // здесь перечислены все возможные параметры для функции
 //createRequest()
+let value = new ApiConnect(1686640200, 71, 62)
 ApiConnect.getList()
-let res = []
-res = ApiConnect.res(ApiConnect.getList())
-console.log("res= "+res)
+
 //ApiConnect.res(JSON.parse(ApiConnect.getList()))[0]
 // console.log(ApiConnect.res())
 // let halls = new ApiConnect()
 ///console.log(halls)
-ApiConnect.getConfig()
-//ApiConnect.getConfig()
+//ApiConnect.runConfig(ApiConnect.getList())
+value.getConfig()
 
 //console.log(ApiConnect.listconfig(ApiConnect.getList()))
 //console.log(list.seances.result[3].seance_time)
