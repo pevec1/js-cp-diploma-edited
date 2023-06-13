@@ -209,6 +209,7 @@ listReserv(res2, callback = f => f) {
       console.log(value3)
     }
     console.log('я не знаю как сюда поместить результат колбека this.listConfig(res1, callback)')
+    
      value4 = '';
 
 return createRequest({
