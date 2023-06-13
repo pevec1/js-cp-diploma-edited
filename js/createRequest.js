@@ -58,49 +58,6 @@ class ApiConnect {
     return [a[0],a[1]]
     return Number(seconds)
   }
-  /**
- * Основная функция для совершения запросов
- * на сервер.
-
-createRequest(url, data, method, callback){
-    let xhr = new XMLHttpRequest()
-    let formData = '';
-    xhr.responseType = 'json'
-    // формат, в котором необходимо выдать результат
-  console.log(url)
-
-    formData = encodeURI(data);
-    console.log(formData); // key=value
-
-    let res;
-  xhr.onreadystatechange = (e) => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          try {
-            callback(xhr.response)
-            //  res = xhr.response
-            //console.log(res)
-           } catch (err) {
-            console.log(err, e)
-              callback(err, e)
-           }
-        }
-      }
-    }
-  console.log(res)
-    xhr.ontimeout = function () {
-      console.log('Timeout')
-    }
-    xhr.open(method, url, true)
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    if (method === 'POST') {
-      xhr.send(formData)
-    } else {
-      xhr.send()
-    }
-  //  return res
-  }
- * */
 static res (res1) {
   //let x = JSON.parse(res1)
         console.log(res1)
@@ -135,17 +92,6 @@ static res (res1) {
       }
     })
   }
-  /*
-  getList() {
-    return this.createRequest(
-      'https://jscp-diplom.netoserver.ru/', // адрес
-      'event=update', //
-      'POST', // метод запроса
-    function(result){
-      return result.seances.result[3].seance_time
-    })
-  }
-*/
  runConfig(res1){
     console.log(JSON.parse(res1))
 }
@@ -201,18 +147,5 @@ listConfig (res1, callback = f => f) {
 let value = new ApiConnect(1686640200, 71, 62)
 ApiConnect.getList()
 
-//ApiConnect.res(JSON.parse(ApiConnect.getList()))[0]
-// console.log(ApiConnect.res())
-// let halls = new ApiConnect()
-///console.log(halls)
-//ApiConnect.runConfig(ApiConnect.getList())
 value.getConfig()
 
-//console.log(ApiConnect.listconfig(ApiConnect.getList()))
-//console.log(list.seances.result[3].seance_time)
-//   request.getConfig(
-//     unixTimestamp + request.time(request.getList().seances.result[3].seance_time) + Number(request.getList().seances.result[3].seance_start),
-//     request.getList().halls.result[0].hall_id,
-//     request.getList().seances.result[3].seance_id,
-//     'https://jscp-diplom.netoserver.ru/',
-//     'POST')
