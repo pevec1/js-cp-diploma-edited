@@ -156,13 +156,19 @@ class ApiConnect {
                 month - 1,
                 resultDate
               ).getTime()/1000))
-              localStorage['date'] = date
-              console.log(date)
-              localStorage['day'] = navDay || Number(Math.floor(new Date(
+              navDay =Number(Math.floor(new Date(
                 new Date().getFullYear(),
                 month - 1,
                 resultDate
               ).getDate()))
+              
+              localStorage['day'] = Number(Math.floor(new Date(
+                new Date().getFullYear(),
+                month - 1,
+                resultDate
+              ).getDate()))
+              localStorage['date'] = date
+              console.log(date)
               
                         }
             for (let link_ of pages) {
@@ -489,7 +495,7 @@ class ApiConnect {
   }
 
   listConfig (res1, callback = f => f) {
-    //  console.log(res1)
+      console.log(res1)
     let x = res1
     let value1, value2, value3
     let i = 0

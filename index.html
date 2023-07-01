@@ -221,6 +221,11 @@
                 month - 1,
                 resultDate
               ).getDate()))
+              navDay = Number(Math.floor(new Date(
+                new Date().getFullYear(),
+                month - 1,
+                resultDate
+              ).getDate()))
               localStorage['date'] = resultDate
               console.log(resultDate)
             }
@@ -237,7 +242,7 @@
     
 //    let pagesNav = document.querySelector('.page-nav')
   }
-  localStorage['day'] = navDay || Number(resultDate)
+  localStorage['day'] = navDay
   localStorage[ 'date' ] = resultDate
   console.log(localStorage['date'])
 }
