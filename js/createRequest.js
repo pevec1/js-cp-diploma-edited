@@ -115,18 +115,18 @@ class ApiConnect {
         ) {
           month = new Date().getMonth()
           console.log(month)
-          nav[i].innerText =pn + i
+          nav[i].innerText = pn + i
           nav[i].setAttribute('data-month', month)
           real = pn + i
         } else {
           month = new Date().getMonth() + 1
           console.log(month)
           nav[i].innerText =
-          pn -
+            pn -
             numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
             i +
             1
-            nav[i].setAttribute('data-month', month)
+          nav[i].setAttribute('data-month', month)
           real =
             pn -
             numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
@@ -151,26 +151,37 @@ class ApiConnect {
               console.log(resultDate)
               month = link.children[1].getAttribute('data-month')
               console.log(resultDate, month)
-              let date = Number(Math.floor(new Date(
-                new Date().getFullYear(),
-                month - 1,
-                resultDate
-              ).getTime()/1000))
-              navDay =Number(Math.floor(new Date(
-                new Date().getFullYear(),
-                month - 1,
-                resultDate
-              ).getDate()))
-              
-              localStorage['day'] = Number(Math.floor(new Date(
-                new Date().getFullYear(),
-                month - 1,
-                resultDate
-              ).getDate()))
+              let date = Number(
+                Math.floor(
+                  new Date(
+                    new Date().getFullYear(),
+                    month - 1,
+                    resultDate
+                  ).getTime() / 1000
+                )
+              )
+              navDay = Number(
+                Math.floor(
+                  new Date(
+                    new Date().getFullYear(),
+                    month - 1,
+                    resultDate
+                  ).getDate()
+                )
+              )
+
+              localStorage['day'] = Number(
+                Math.floor(
+                  new Date(
+                    new Date().getFullYear(),
+                    month - 1,
+                    resultDate
+                  ).getDate()
+                )
+              )
               localStorage['date'] = date
               console.log(date)
-              
-                        }
+            }
             for (let link_ of pages) {
               if (link_.innerText != clk) {
                 link_.classList.remove('page-nav__day_chosen')
@@ -217,7 +228,13 @@ class ApiConnect {
                             'film=' + l + '&hall=' + h + '&seance=' + s
                           ] = JSON.stringify({
                             film_id: res.films.result[l].film_id,
+                            film_name: res.films.result[l].film_name,
                             hall_id: res.halls.result[h].hall_id,
+                            hall_name: res.halls.result[h].hall_name,
+                            hall_price_standart:
+res.halls.result[h].hall_price_standart,
+                            hall_price_vip:
+res.halls.result[h].hall_price_vip,
                             seance_time: res.seances.result[s].seance_time,
                             l: l,
                             h: h,
@@ -327,249 +344,84 @@ class ApiConnect {
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
       let storage = JSON.parse(localStorage[this.hallKey])
+      let date = localStorage['date']
+      let day = localStorage['day']
+
       console.log(storage)
       let hall_config = document.querySelector('.conf-step__wrapper')
       hall_config.innerHTML = JSON.parse(res)
 
-      let chairs = document.querySelectorAll('.conf-step__chair')
-      let rows = document.querySelectorAll('.conf-step__row')
-      let selected = []
-      for (let row = 1; row <= 10; row++) {
-        for (let col = 0; col < chairs.length; col++) {
-          chairs[col].addEventListener('click', e => {
-            if (
-              (chairs[col].classList.contains('conf-step__chair_disabled') &&
-                rows[row].classList.contains('conf-step__row')) ||
-              (chairs[col].classList.contains('conf-step__chair_taken') &&
-                rows[row].classList.contains('conf-step__row'))
-            ) {
-            } else if (
-              chairs[col].classList.contains('conf-step__chair_standart') &&
-              !chairs[col].classList.contains('conf-step__chair_selected') &&
-              rows[row].classList.contains('conf-step__row')
-            ) {
-              console.log(selected)
-              switch (Math.floor(col / 10, 0)) {
-                case 0:
-                  selected.push({ standart: [1, (col % 10) + 1] })
-                  break
-                case 1:
-                  selected.push({ standart: [2, (col % 10) + 1] })
-                  break
-                case 2:
-                  selected.push({ standart: [3, (col % 10) + 1] })
-                  break
-                case 3:
-                  selected.push({ standart: [4, (col % 10) + 1] })
-                  break
-                case 4:
-                  selected.push({ standart: [5, (col % 10) + 1] })
-                  break
-                case 5:
-                  selected.push({ standart: [6, (col % 10) + 1] })
-                  break
-                case 6:
-                  selected.push({ standart: [7, (col % 10) + 1] })
-                  break
-                case 7:
-                  selected.push({ standart: [8, (col % 10) + 1] })
-                  break
-                case 8:
-                  selected.push({ standart: [9, (col % 10) + 1] })
-                  break
-                case 9:
-                  selected.push({ standart: [10, (col % 10) + 1] })
-                  break
-              }
+      let buttonAcceptin = document.querySelector('.acceptin-button')
+      let chairs = Array.from(
+        document.querySelectorAll('.conf-step__row .conf-step__chair')
+      )
+      buttonAcceptin.setAttribute('disabled', true)
 
-              //chairs[col].classList.remove('conf-step__chair_standart')
-              chairs[col].classList.add('conf-step__chair_selected')
-            } else if (
-              chairs[col].classList.contains('conf-step__chair_standart') &&
-              chairs[col].classList.contains('conf-step__chair_selected') &&
-              rows[row].classList.contains('conf-step__row')
-            ) {
-              console.log(selected)
-              switch (Math.floor(col / 10, 0)) {
-                case 0:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [1, (col % 10) + 1] }
-                  })
-                  break
-                case 1:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [2, (col % 10) + 1] }
-                  })
-                  break
-                case 2:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [3, (col % 10) + 1] }
-                  })
-                  break
-                case 3:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [4, (col % 10) + 1] }
-                  })
-                  break
-                case 4:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [5, (col % 10) + 1] }
-                  })
-                  break
-                case 5:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [6, (col % 10) + 1] }
-                  })
-                  break
-                case 6:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [7, (col % 10) + 1] }
-                  })
-                  break
-                case 7:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [8, (col % 10) + 1] }
-                  })
-                  break
-                case 8:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [9, (col % 10) + 1] }
-                  })
-                  break
-                case 9:
-                  selected = selected.filter(function (obj) {
-                    return obj !== { standart: [10, (col % 10) + 1] }
-                  })
-                  break
-              }
+      chairs.forEach(chair => {
+        chair.addEventListener('click', event => {
+          if (event.target.classList.contains('conf-step__chair_taken')) {
+            return
+          }
+          event.target.classList.toggle('conf-step__chair_selected')
+          let chairsSelected = Array.from(
+            document.querySelectorAll(
+              '.conf-step__row .conf-step__chair_selected'
+            )
+          )
+          if (chairsSelected.length > 0) {
+            buttonAcceptin.removeAttribute('disabled')
+          } else {
+            buttonAcceptin.setAttribute('disabled', true)
+          }
+        })
+      })
 
-              // chairs[col].classList.remove('conf-step__chair_standart')
-              chairs[col].classList.remove('conf-step__chair_selected')
-            } else if (
-              chairs[col].classList.contains('conf-step__chair_vip') &&
-              rows[row].classList.contains('conf-step__row')
-            ) {
-              console.log(selected)
-              switch (Math.floor(col / 10, 0)) {
-                case 0:
-                  selected.push({ vip: [1, (col % 10) + 1] })
-                  break
-                case 1:
-                  selected.push({ vip: [2, (col % 10) + 1] })
-                  break
-                case 2:
-                  selected.push({ vip: [3, (col % 10) + 1] })
-                  break
-                case 3:
-                  selected.push({ vip: [4, (col % 10) + 1] })
-                  break
-                case 4:
-                  selected.push({ vip: [5, (col % 10) + 1] })
-                  break
-                case 5:
-                  selected.push({ vip: [6, (col % 10) + 1] })
-                  break
-                case 6:
-                  selected.push({ vip: [7, (col % 10) + 1] })
-                  break
-                case 7:
-                  selected.push({ vip: [8, (col % 10) + 1] })
-                  break
-                case 8:
-                  selected.push({ vip: [9, (col % 10) + 1] })
-                  break
-                case 9:
-                  selected.push({ vip: [10, (col % 10) + 1] })
-                  break
-              }
+      buttonAcceptin.addEventListener('click', event => {
+        event.preventDefault()
 
-              //chairs[col].classList.remove('conf-step__chair_vip')
-              chairs[col].classList.add('conf-step__chair_selected')
+        let selectedPlaces = Array()
+        let rows = Array.from(document.getElementsByClassName('conf-step__row'))
+
+        for (let i = 0; i < rows.length; i++) {
+          let spanPlaces = Array.from(
+            rows[i].getElementsByClassName('conf-step__chair')
+          )
+          for (let j = 0; j < spanPlaces.length; j++) {
+            if (spanPlaces[j].classList.contains('conf-step__chair_selected')) {
+              let typePlace = spanPlaces[j].classList.contains(
+                'conf-step__chair_standart'
+              )
+                ? 'standart'
+                : 'vip'
+              selectedPlaces.push({
+                row: i + 1,
+                place: j + 1,
+                type: typePlace
+              })
             }
-          })
+          }
         }
-      }
+
+    hall_config = document.querySelector('.conf-step__wrapper').innerHTML;
+    localStorage.clear();
+    localStorage['hall_config'] = JSON.stringify(hall_config);
+    localStorage['places'] = JSON.stringify(selectedPlaces);
+     localStorage['storage'] = JSON.stringify(storage)
+    localStorage['date'] = date
+    localStorage['day'] = day
+  
+    window.location.href = "payment.html?"+this.hallKey;
+
+      })
     }
-    //    this.wrapper = this.createFragmentFromString(res)
-    //  console.log(this.wrapper)
+
   }
 
   listConfig (res1, callback = f => f) {
-      console.log(res1)
+    console.log(res1)
     let x = res1
     let value1, value2, value3
     let i = 0
-    let page = window.location.href
-    if (page.includes('hall.html')) {
-      this.hallKey = window.location.search.substring(1)
-      let storage = JSON.parse(localStorage[this.hallKey])
-      console.log(storage)
-      i = storage.s
-    }
-   const str = '2023-04-26'
-    let date = localStorage['date']
-    console.log(date)
-    let st, st2
-    let timestamp
-    let unixTimestamp
-    let j
-    st = String(JSON.stringify(x.seances.result[i].seance_time))
-    st2 = String(JSON.stringify(x.seances.result[i].seance_start))
-    j = String(JSON.stringify(x.seances.result[i].seance_hallid))
-    //date.setHours(ApiConnect.time(st)[0])
-    //date.setMinutes(ApiConnect.time(st)[1])
-    //date.setSeconds(0)
-   // timestamp = date.getTime()
-    //console.log(timestamp)
-    unixTimestamp = Number(localStorage['date']) + Number(st2.replace('"','').replace('"',''))*60
-    //unixTimestamp = Number(Math.floor(Date.now()/1000))+Number(st2.replace('"','').replace('"',''))*60+60*60*24
-    console.log(unixTimestamp)
-console.log(date)
-    //unixTimestamp = date
-    value1 = this.value1
-    //console.log(value1)
-    value2 = this.value2
-    //  console.log(value2)
-    value3 = this.value3
-    //  console.log(value3)
-    //    console.log(x)
-    //console.log(st, st2)
-    if (value1 === undefined || value2 === undefined || value3 === undefined) {
-      value1 = unixTimestamp
-      console.log(value1)
-      value2 = Number(j.replace('"', '').replace('"', ''))
-      console.log(value2)
-      value3 = Number(
-        JSON.stringify(x.seances.result[i].seance_id)
-          .replace('"', '')
-          .replace('"', '')
-      )
-    console.log(value3)
-    }
-    return createRequest({
-      method: 'POST',
-      responseType: 'json',
-      async: true,
-      data: `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`,
-      callback: (err, response) => {
-        if (response) {
-          return this.runConfig(JSON.stringify(response))
-        }
-        callback.call(this, err, response)
-      }
-    })
-  }
-
-  runReserv (res) {
-    console.log(JSON.parse(res).sales.result)
-    return res
-  }
-
-  listReserv (res2, callback = f => f) {
-    // console.log(res1)
-    //  console.log(res2)
-    let x = res2
-    let i
     let page = window.location.href
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
@@ -590,12 +442,130 @@ console.log(date)
     //date.setHours(ApiConnect.time(st)[0])
     //date.setMinutes(ApiConnect.time(st)[1])
     //date.setSeconds(0)
-   // timestamp = date.getTime()
+    // timestamp = date.getTime()
     //console.log(timestamp)
-    unixTimestamp = Number(localStorage['date']) + Number(st2.replace('"','').replace('"',''))*60
+    unixTimestamp =
+      Number(localStorage['date']) +
+      Number(st2.replace('"', '').replace('"', '')) * 60
     //unixTimestamp = Number(Math.floor(Date.now()/1000))+Number(st2.replace('"','').replace('"',''))*60+60*60*24
     console.log(unixTimestamp)
-console.log(date)
+    console.log(date)
+    //unixTimestamp = date
+    value1 = this.value1
+    //console.log(value1)
+    value2 = this.value2
+    //  console.log(value2)
+    value3 = this.value3
+    //  console.log(value3)
+    //    console.log(x)
+    //console.log(st, st2)
+    if (value1 === undefined || value2 === undefined || value3 === undefined) {
+      value1 = unixTimestamp
+      console.log(value1)
+      value2 = Number(j.replace('"', '').replace('"', ''))
+      console.log(value2)
+      value3 = Number(
+        JSON.stringify(x.seances.result[i].seance_id)
+          .replace('"', '')
+          .replace('"', '')
+      )
+      console.log(value3)
+    }
+    return createRequest({
+      method: 'POST',
+      responseType: 'json',
+      async: true,
+      data: `event=get_hallConfig&timestamp=${value1}&hallId=${value2}&seanceId=${value3}`,
+      callback: (err, response) => {
+        if (response) {
+          return this.runConfig(JSON.stringify(response))
+        }
+        callback.call(this, err, response)
+      }
+    })
+  }
+
+  runReserv (res) {
+         console.log(JSON.parse(res))
+    localStorage['sales'] = res
+    document.body.innerHTML = ''
+    window.location.href = 'ticket.html'
+
+}
+
+getTicket(){
+  let page = window.location.href
+  if (page.includes('ticket.html')) {
+      let storage = JSON.parse(localStorage['storage'])
+      console.log(storage)
+      let salesPlaces = JSON.parse(localStorage['places'])
+      let date = localStorage['date']
+      let day = localStorage['day']
+let places = "";
+let price = 0;
+
+salesPlaces.forEach(salePlace => {
+  if (places) {
+    places += ", ";
+  };
+  places += `${salePlace.row}/${salePlace.place}`;
+  price += salePlace.type === "standart" ? Number(storage.hall_price_standart) : Number(storage.hall_price_vip);
+});
+
+document.querySelector(".ticket__title").innerHTML = storage.film_name;
+document.querySelector(".ticket__chairs").innerHTML = places;
+document.querySelector(".ticket__hall").innerHTML = storage.hall_name;
+document.querySelector(".ticket__start").innerHTML = storage.seance_time;
+
+
+let dates = new Date(Number(localStorage['date'] * 1000));
+let dateStr = dates.toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
+let textQR =`
+Фильм: ${storage.film_name}
+Зал: ${storage.hall_name}
+Ряд/Место ${places}
+Дата: ${dateStr}
+Начало сеанса: ${storage.seance_time}
+Билет действителен строго на свой сеанс`;
+
+let qrcode = QRCreator(textQR, { image: "SVG"	});
+qrcode.download();
+document.querySelector(".ticket__info-qr").append(qrcode.result);
+}    
+   
+}
+  listReserv (res2, callback = f => f) {
+    // console.log(res1)
+    //  console.log(res2)
+    let x = res2
+    let i
+    let page = window.location.href
+    if (page.includes('payment.html')) {
+      let storage = JSON.parse(localStorage['storage'])
+      console.log(storage)
+      i = storage.s
+
+    const str = '2023-04-26'
+    let date = localStorage['date']
+    console.log(date)
+    let st, st2
+    let timestamp
+    let unixTimestamp
+    let j
+    st = String(JSON.stringify(x.seances.result[i].seance_time))
+    st2 = String(JSON.stringify(x.seances.result[i].seance_start))
+    j = String(JSON.stringify(x.seances.result[i].seance_hallid))
+    //date.setHours(ApiConnect.time(st)[0])
+    //date.setMinutes(ApiConnect.time(st)[1])
+    //date.setSeconds(0)
+    // timestamp = date.getTime()
+    //console.log(timestamp)
+    unixTimestamp =
+      Number(localStorage['date']) +
+      Number(st2.replace('"', '').replace('"', '')) * 60
+    //unixTimestamp = Number(Math.floor(Date.now()/1000))+Number(st2.replace('"','').replace('"',''))*60+60*60*24
+    console.log(unixTimestamp)
+    console.log(date)
     //unixTimestamp = date
     let value1, value2, value3, value4
     value1 = this.value1
@@ -620,9 +590,42 @@ console.log(date)
     }
 
     //`hallConfiguration` - Строка - ***html разметка*** которую следует взять со страницы `hall.html` внутри контейнера с классом `conf-step__wrapper`(см разметку).
-    //  console.log(this.createFragmentFromString(res2))
-    if (true) {
-      value4 = this.wrapper.textContent
+    //      let page = window.location.href
+      if (page.includes('payment.html')) {
+      this.hallKey = window.location.search.substring(1)
+        let storage = JSON.parse(localStorage['storage'])
+        console.log(storage)
+        i = storage.s
+        let salesPlaces = JSON.parse(localStorage['places'])
+        let date = localStorage['date']
+        let day = localStorage['day']
+  
+       
+        localStorage['storage'] = JSON.stringify(storage)
+        localStorage['date'] = date
+        localStorage['day'] = day
+        let places = "";
+      let price = 0;
+      
+      salesPlaces.forEach(salePlace => {
+        if (places) {
+          places += ", ";
+        };
+        places += `${salePlace.row}/${salePlace.place}`;
+        price += salePlace.type === "standart" ? Number(storage.hall_price_standart) : Number(storage.hall_price_vip);
+      });
+      localStorage['places'] = JSON.stringify(salesPlaces);
+      
+      document.querySelector(".ticket__title").innerHTML = storage.film_name;
+      document.querySelector(".ticket__chairs").innerHTML = places;
+      document.querySelector(".ticket__hall").innerHTML = storage.hall_name;
+      document.querySelector(".ticket__start").innerHTML = storage.seance_time;
+      document.querySelector(".ticket__cost").innerHTML = price;
+      }    
+    
+    document.querySelector(".acceptin-button").addEventListener("click", (event) => {
+      event.preventDefault()
+      value4 = JSON.parse(localStorage['hall_config']).replace(/selected/g, "taken")
       console.log(value4) //
 
       return createRequest({
@@ -638,10 +641,12 @@ console.log(date)
           callback.call(this, err, response)
         }
       })
-    }
+    
+    })
   }
+}
 
-  getReserv (callback = f => f) {
+getReserv (callback = f => f) {
     return createRequest({
       method: 'POST',
       responseType: 'json',
@@ -657,14 +662,18 @@ console.log(date)
     })
   }
 }
-
 // здесь перечислены все возможные параметры для функции
 //createRequest()
 let value = new ApiConnect()
+let page = window.location.href
+if (page.includes('ticket.html')) {
+value.getTicket()
+} else{
 value.getList()
 
 value.getConfig()
-//value.getReserv(value.getConfig())
-
+value.getReserv(value.getConfig())
+}
+//value.runReserv(value.getReserv(value.getConfig()))
 //
 // 1686640200, 71, 62

@@ -12,8 +12,8 @@
 </head>
 
 <body>
-  <header class="page-header">
-    <h1 class="page-header__title">Идём<span>в</span>кино</h1>
+  <header class="page-header d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a class="page-header__title" href="index.html">Идём<span>в</span>кино</a>
   </header>
   
   <main>
@@ -29,14 +29,16 @@
         <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">1</span></p>
         <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">18:30</span></p>
 
-        <img class="ticket__info-qr" src="i/qr-code.png">
+        <div class="ticket__info-qr"></div>
 
         <p class="ticket__hint">Покажите QR-код нашему контроллеру для подтверждения бронирования.</p>
         <p class="ticket__hint">Приятного просмотра!</p>
       </div>
     </section>     
   </main>
-  <script src="js/createRequest.js"></script>  
+  
+  <script src="js/QRCreator.js" defer></script>  
+  <script src="js/createRequest.js" defer></script>  
 
 </body>
 </html>
