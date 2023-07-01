@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ИдёмВКино</title>
-  <script src="js/hall.js" defer></script>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
@@ -26,7 +25,7 @@
           <p class="buying__info-hall">Зал 1</p>          
         </div>
         <div class="buying__info-hint">
-          <button class="abc">Тапните дважды,<br>чтобы увеличить</button>
+          <button class="abc">Тапните,<br>чтобы увеличить</button>
         </div>
       </div>
       <div class="conf-step">
@@ -125,20 +124,8 @@
       <button class="acceptin-button"  >Забронировать</button>
     </section>     
   </main>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <script>
-    $( document ).ready(function(){
-    var div = $('conf-step'), baseHeight = div.height();
-    $('.abc').click(function() {
-      div.animate({
-        height: (div.height() == baseHeight ? '50%' : baseHeight)
-      });
-    });
-  });
-  </script>
 
   <script src="js/createRequest.js"></script>
-  <script src="js/interface.js"></script>  
 
 </body>
 </html>
