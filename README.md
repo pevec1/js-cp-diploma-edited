@@ -1,3 +1,16 @@
+
+**Используемые технологии**
+- JavaScript
+- CSS
+- HTML
+
+**Ссылка на GitHub Pages website** 
+https://pevec1.github.io/js-cp-diploma-edited/
+
+**Описание файла JS**
+- [createRequest](./md/createRequest.md)
+
+
 # Дипломное задание по курсу «JavaScript-программирование для начинающих»
 
 ## Создание «информационной системы для предварительного бронирования билетов».
