@@ -152,8 +152,12 @@
   <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>  
   <script>localStorage.clear()
   function load(){
-      let navDay = new Date()
+    let navDay = new Date()
     navDay = Number(String(navDay.getDate()).padStart(2, '0'))
+    console.log(new Date().getTime())
+    var d = new Date()
+    let today = new Date();
+  today.setHours(0, 0, 0);
     localStorage['day'] = navDay
     console.log(navDay)
     var d = new Date()
@@ -170,28 +174,26 @@
       let pages = document.querySelectorAll('.page-nav__day')
       for (let i = 0; i < nav.length; i++) {
         if (
-          pn + i <=
+          pn + i <
           numberOfDays(new Date().getFullYear(), new Date().getMonth())
         ) {
-          month = new Date().getMonth()
+          month = new Date().getMonth()+1
           console.log(month)
           nav[i].innerText =pn + i
           nav[i].setAttribute('data-month', month)
           real = pn + i
         } else {
-          month = new Date().getMonth() + 1
+          month = new Date().getMonth() + 2
           console.log(month)
           nav[i].innerText =
           pn -
             numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-            i +
-            1
+            i
             nav[i].setAttribute('data-month', month)
           real =
             pn -
             numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-            i +
-            1
+            i
         }
 
         if (real == navDay) {

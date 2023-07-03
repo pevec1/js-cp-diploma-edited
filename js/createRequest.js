@@ -92,9 +92,10 @@ class ApiConnect {
     console.log(res)
     let navDay = new Date()
     navDay = Number(String(navDay.getDate()).padStart(2, '0'))
-    console.log(navDay)
-
+    console.log(new Date().getTime())
     var d = new Date()
+    let today = new Date();
+  today.setHours(0, 0, 0);
     console.log(
       new Date().getMonth() + 1,
       numberOfDays(new Date().getFullYear(), new Date().getMonth() + 1)
@@ -103,41 +104,150 @@ class ApiConnect {
     let pn = Number(d.getDate())
     let real = 0
     let month
+    let stampDate
     let nav = document.querySelectorAll('.page-nav__day-number')
     let pagesNav = document.querySelector('.page-nav')
     if (pagesNav) {
       //let movies = document.getElementsByTagName('movie')
       let pages = document.querySelectorAll('.page-nav__day')
       for (let i = 0; i < nav.length; i++) {
-        if (
-          pn + i <=
+        let day = new Date(today.getTime() + (i * 86400000));
+        let timestamp = Math.trunc(day/1000);
+            if (
+          pn + i <
           numberOfDays(new Date().getFullYear(), new Date().getMonth())
         ) {
-          month = new Date().getMonth()
+          month = new Date().getMonth()+1
           console.log(month)
-          nav[i].innerText = pn + i
+          nav[i].innerText =pn + i
           nav[i].setAttribute('data-month', month)
+          nav[i].setAttribute('data-timestamp', timestamp)
           real = pn + i
         } else {
-          month = new Date().getMonth() + 1
+          month = new Date().getMonth() + 2
           console.log(month)
           nav[i].innerText =
+          pn -
+            numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
+            i 
+            nav[i].setAttribute('data-month', month)
+            nav[i].setAttribute('data-timestamp', timestamp)
+            real =
             pn -
             numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-            i +
-            1
-          nav[i].setAttribute('data-month', month)
-          real =
-            pn -
-            numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-            i +
-            1
+            i 
         }
+
 
         if (real == navDay) {
           nav[i].parentNode.classList.add('page-nav__day_today')
           nav[i].parentNode.classList.add('page-nav__day_chosen')
         }
+
+        let main = document.getElementsByTagName('main')[0]
+        if (pagesNav) {
+          //let movie = document.createElement('section')
+          let pages = document.querySelectorAll('.page-nav__day')
+          for (let link of pages) {
+            if (link.children[1].textContent == localStorage['day']) {
+              main.innerHTML = ''
+              for (let l = 0; l < res.films.result.length; l++) {
+                let section = document.createElement('section')
+                section.classList.add('movie')
+                section.innerHTML = `
+                <div class="movie__info row">
+                  <div class="movie__poster col-4">
+                    <img class="movie__poster-image" alt="постер" src=${res.films.result[l].film_poster}>
+                  </div>
+                  <div class="movie__description col-8">
+                    <h2 class="movie__title">${res.films.result[l].film_name}</h2>
+                    <p class="movie__synopsis">${res.films.result[l].film_description}</p>
+                    <p class="movie__data">
+                      <span class="movie__data-duration">${res.films.result[l].film_duration} минут</span>
+                      <span class="movie__data-origin">${res.films.result[l].film_origin}</span>
+                    </p>
+                  </div>
+                </div>`
+                main.appendChild(section)
+                for (let h = 0; h < res.halls.result.length; h++) {
+                  if (res.halls.result[h].hall_open === '1') {
+                    let countSeancesInHall = 0
+                    for (let s = 0; s < res.seances.result.length; s++) {
+                      if (
+                        res.seances.result[s].seance_hallid ===
+                          res.halls.result[h].hall_id &&
+                        res.seances.result[s].seance_filmid ===
+                          res.films.result[l].film_id
+                      ) {
+                        countSeancesInHall = 1
+                        timestamp = Number(localStorage['date']) + Number(res.seances.result[s].seance_start) * 60
+                        localStorage[
+                          'film=' + l + '&hall=' + h + '&seance=' + s
+                        ] = JSON.stringify({
+                          film_id: res.films.result[l].film_id,
+                          film_name: res.films.result[l].film_name,
+                          hall_id: res.halls.result[h].hall_id,
+                          hall_name: res.halls.result[h].hall_name,
+                          hall_config: res.halls.result[h].hall_config,
+                          hall_price_standart:
+res.halls.result[h].hall_price_standart,
+                          hall_price_vip:
+res.halls.result[h].hall_price_vip,
+seance_id: res.seances.result[s].seance_id,
+seance_time: res.seances.result[s].seance_time,
+seance_start: res.seances.result[s].seance_start,
+timestamp: timestamp,
+l: l,
+                          h: h,
+                          s: s
+                        })
+                      }
+                    }
+                    if (countSeancesInHall == 1) {
+                      let div = document.createElement('div')
+                      div.classList.add('movie-seances__hall')
+                      div.innerHTML = `
+                <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
+                      section.appendChild(div)
+                      for (let s = 0; s < res.seances.result.length; s++) {
+                        if (
+                          res.seances.result[s].seance_hallid ===
+                            res.halls.result[h].hall_id &&
+                          res.seances.result[s].seance_filmid ===
+                            res.films.result[l].film_id
+                        ) {
+                          let ul = document.createElement('ul')
+                          ul.classList.add('movie-seances__list')
+                          ul.innerHTML = ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+
+                          div.appendChild(ul)
+                          console.log(ul.children[0].children[0].getAttribute('data-timestamp'))
+
+                          let timeSeance = Number(localStorage['date']) + Number(res.seances.result[s].seance_start)*60;
+localStorage['timestamp'] = timeSeance
+                          console.log(Number(timestamp))
+                          //console.log(e.target.closest('.page-nav__day'))
+                                                    console.log(timeSeance)
+                          let timeNow = Number(Math.trunc(+new Date() / 1000))
+                          console.log(timeNow)
+
+                          console.log(timeSeance - timeNow)
+                                if ((timeSeance - timeNow) > 0) {
+                            ul.children[0].children[0].classList.remove('acceptin-button-disabled');
+                          } else {
+                            ul.children[0].children[0].classList.add('acceptin-button-disabled');
+                          };
+          
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
         for (let link of pages) {
           link.addEventListener('click', e => {
             e.preventDefault()
@@ -181,94 +291,120 @@ class ApiConnect {
               )
               localStorage['date'] = date
               console.log(date)
-            }
-            for (let link_ of pages) {
-              if (link_.innerText != clk) {
-                link_.classList.remove('page-nav__day_chosen')
-              }
-            }
-          })
-          let main = document.getElementsByTagName('main')[0]
-          if (pagesNav) {
-            //let movie = document.createElement('section')
-            let pages = document.querySelectorAll('.page-nav__day')
-            for (let link of pages) {
-              if (link.children[1].textContent == localStorage['day']) {
-                main.innerHTML = ''
-                for (let l = 0; l < res.films.result.length; l++) {
-                  let section = document.createElement('section')
-                  section.classList.add('movie')
-                  section.innerHTML = `
-                  <div class="movie__info row">
-                    <div class="movie__poster col-4">
-                      <img class="movie__poster-image" alt="постер" src=${res.films.result[l].film_poster}>
-                    </div>
-                    <div class="movie__description col-8">
-                      <h2 class="movie__title">${res.films.result[l].film_name}</h2>
-                      <p class="movie__synopsis">${res.films.result[l].film_description}</p>
-                      <p class="movie__data">
-                        <span class="movie__data-duration">${res.films.result[l].film_duration} минут</span>
-                        <span class="movie__data-origin">${res.films.result[l].film_origin}</span>
-                      </p>
-                    </div>
-                  </div>`
-                  main.appendChild(section)
-                  for (let h = 0; h < res.halls.result.length; h++) {
-                    if (res.halls.result[h].hall_open === '1') {
-                      let countSeancesInHall = 0
-                      for (let s = 0; s < res.seances.result.length; s++) {
-                        if (
-                          res.seances.result[s].seance_hallid ===
-                            res.halls.result[h].hall_id &&
-                          res.seances.result[s].seance_filmid ===
-                            res.films.result[l].film_id
-                        ) {
-                          countSeancesInHall = 1
-                          localStorage[
-                            'film=' + l + '&hall=' + h + '&seance=' + s
-                          ] = JSON.stringify({
-                            film_id: res.films.result[l].film_id,
-                            film_name: res.films.result[l].film_name,
-                            hall_id: res.halls.result[h].hall_id,
-                            hall_name: res.halls.result[h].hall_name,
-                            hall_price_standart:
-res.halls.result[h].hall_price_standart,
-                            hall_price_vip:
-res.halls.result[h].hall_price_vip,
-                            seance_time: res.seances.result[s].seance_time,
-                            l: l,
-                            h: h,
-                            s: s
-                          })
-                        }
-                      }
-                      if (countSeancesInHall == 1) {
-                        let div = document.createElement('div')
-                        div.classList.add('movie-seances__hall')
-                        div.innerHTML = `
-                  <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
-                        section.appendChild(div)
-                        for (let s = 0; s < res.seances.result.length; s++) {
-                          if (
-                            res.seances.result[s].seance_hallid ===
-                              res.halls.result[h].hall_id &&
-                            res.seances.result[s].seance_filmid ===
-                              res.films.result[l].film_id
-                          ) {
-                            let ul = document.createElement('ul')
-                            ul.classList.add('movie-seances__list')
-                            ul.innerHTML = ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+              stampDate = date
 
-                            div.appendChild(ul)
+              let main = document.getElementsByTagName('main')[0]
+              if (pagesNav) {
+                //let movie = document.createElement('section')
+                let pages = document.querySelectorAll('.page-nav__day')
+                for (let link of pages) {
+                  if (link.children[1].textContent == localStorage['day']) {
+                    main.innerHTML = ''
+                    for (let l = 0; l < res.films.result.length; l++) {
+                      let section = document.createElement('section')
+                      section.classList.add('movie')
+                      section.innerHTML = `
+                      <div class="movie__info row">
+                        <div class="movie__poster col-4">
+                          <img class="movie__poster-image" alt="постер" src=${res.films.result[l].film_poster}>
+                        </div>
+                        <div class="movie__description col-8">
+                          <h2 class="movie__title">${res.films.result[l].film_name}</h2>
+                          <p class="movie__synopsis">${res.films.result[l].film_description}</p>
+                          <p class="movie__data">
+                            <span class="movie__data-duration">${res.films.result[l].film_duration} минут</span>
+                            <span class="movie__data-origin">${res.films.result[l].film_origin}</span>
+                          </p>
+                        </div>
+                      </div>`
+                      main.appendChild(section)
+                      for (let h = 0; h < res.halls.result.length; h++) {
+                        if (res.halls.result[h].hall_open === '1') {
+                          let countSeancesInHall = 0
+                          for (let s = 0; s < res.seances.result.length; s++) {
+                            if (
+                              res.seances.result[s].seance_hallid ===
+                                res.halls.result[h].hall_id &&
+                              res.seances.result[s].seance_filmid ===
+                                res.films.result[l].film_id
+                            ) {
+                              countSeancesInHall = 1
+                              timestamp = Number(localStorage['date']) + Number(res.seances.result[s].seance_start) * 60
+                        localStorage[
+                          'film=' + l + '&hall=' + h + '&seance=' + s
+                        ] = JSON.stringify({
+                          film_id: res.films.result[l].film_id,
+                          film_name: res.films.result[l].film_name,
+                          hall_id: res.halls.result[h].hall_id,
+                          hall_name: res.halls.result[h].hall_name,
+                          hall_config: res.halls.result[h].hall_config,
+                          hall_price_standart:
+res.halls.result[h].hall_price_standart,
+                          hall_price_vip:
+res.halls.result[h].hall_price_vip,
+seance_id: res.seances.result[s].seance_id,
+seance_time: res.seances.result[s].seance_time,
+seance_start: res.seances.result[s].seance_start,
+timestamp: timestamp,
+l: l,
+                          h: h,
+                          s: s
+                        })
+                            }
+                          }
+                          if (countSeancesInHall == 1) {
+                            let div = document.createElement('div')
+                            div.classList.add('movie-seances__hall')
+                            div.innerHTML = `
+                      <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
+                            section.appendChild(div)
+                            for (let s = 0; s < res.seances.result.length; s++) {
+                              if (
+                                res.seances.result[s].seance_hallid ===
+                                  res.halls.result[h].hall_id &&
+                                res.seances.result[s].seance_filmid ===
+                                  res.films.result[l].film_id
+                              ) {
+                                let ul = document.createElement('ul')
+                                ul.classList.add('movie-seances__list')
+                                ul.innerHTML = ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+
+                                div.appendChild(ul)
+
+console.log(ul.children[0].children[0].getAttribute('data-timestamp'))
+
+                                let timeSeance = Number(localStorage['date']) + Number(res.seances.result[s].seance_start)*60;
+localStorage['timestamp'] = timeSeance
+                                console.log(Number(timestamp))
+                                console.log(e.target.closest('.page-nav__day'))
+                                                          console.log(timeSeance)
+                                let timeNow = Number(Math.trunc(+new Date() / 1000))
+                                console.log(timeNow)
+
+                                console.log(timeSeance - timeNow)
+                                      if ((timeSeance - timeNow) > 0) {
+                                  ul.children[0].children[0].classList.remove('acceptin-button-disabled');
+                                } else {
+                                  ul.children[0].children[0].classList.add('acceptin-button-disabled');
+                                };
+                      
+                              }
+                            }
                           }
                         }
                       }
                     }
                   }
                 }
+              }            }
+            for (let link_ of pages) {
+              if (link_.innerText != clk) {
+                link_.classList.remove('page-nav__day_chosen')
               }
             }
-          }
+          })
+
+
         }
       }
 
@@ -281,12 +417,42 @@ res.halls.result[h].hall_price_vip,
       let info_start = document.querySelector('.buying__info-start')
       let info_hall = document.querySelector('.buying__info-hall')
       let hall_config = document.querySelector('.conf-step__wrapper')
-      let storage = JSON.parse(localStorage[this.hallKey])
+      let storage
+      console.log(this.hallKey)
+      try {
+      storage = JSON.parse(localStorage[this.hallKey]) 
+        
+      } catch (error) {
+        storage = JSON.parse(localStorage['storage'])
+        
+      }
       console.log(storage)
+      let timestamp = Number(localStorage['date']) + Number(res.seances.result[storage.s].seance_start) * 60
+      localStorage[
+        'storage'
+      ] = JSON.stringify({
+        film_id: res.films.result[storage.l].film_id,
+        film_name: res.films.result[storage.l].film_name,
+        hall_id: res.halls.result[storage.h].hall_id,
+        hall_name: res.halls.result[storage.h].hall_name,
+        hall_config: res.halls.result[storage.h].hall_config,
+        hall_price_standart:
+res.halls.result[storage.h].hall_price_standart,
+        hall_price_vip:
+res.halls.result[storage.h].hall_price_vip,
+seance_id: res.seances.result[storage.s].seance_id,
+seance_time: res.seances.result[storage.s].seance_time,
+seance_start: res.seances.result[storage.s].seance_start,
+timestamp: timestamp,
+l: storage.l,
+        h: storage.h,
+        s: storage.s
+      })
+
       info_title.innerText = res.films.result[storage.l].film_name
       info_start.innerText =
         'Начало сеанса: ' + res.seances.result[storage.s].seance_time
-      info_hall.innerText = 'Зал ' + String(Number(storage.h) + 1)
+      info_hall.innerText = res.halls.result[storage.h].hall_name
       hall_config.innerHTML = res.halls.result[storage.h].hall_config
       let price_standart = document.querySelector('.price-standart')
       let price_vip = document.querySelector('.price-vip')
@@ -339,17 +505,33 @@ res.halls.result[h].hall_price_vip,
   }
 
   runConfig (res) {
+    console.log('000')
     console.log(JSON.parse(res))
     let page = window.location.href
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
-      let storage = JSON.parse(localStorage[this.hallKey])
-      let date = localStorage['date']
+      let storage
+      try {
+        storage = JSON.parse(localStorage[this.hallKey]) 
+          
+        } catch (error) {
+          storage = JSON.parse(localStorage['storage'])
+          
+        }
+        let date = localStorage['date']
       let day = localStorage['day']
 
       console.log(storage)
       let hall_config = document.querySelector('.conf-step__wrapper')
+
+    try {
       hall_config.innerHTML = JSON.parse(res)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+      hall_config.innerHTML = storage.hall_config
+      console.log(storage.hall_config)
+    }
 
       let buttonAcceptin = document.querySelector('.acceptin-button')
       let chairs = Array.from(
@@ -425,10 +607,89 @@ res.halls.result[h].hall_price_vip,
     let page = window.location.href
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
-      let storage = JSON.parse(localStorage[this.hallKey])
-      console.log(storage)
-      i = storage.s
-    }
+      let storage
+      try {
+        storage = JSON.parse(localStorage[this.hallKey]) 
+          
+        } catch (error) {
+          storage = JSON.parse(localStorage['storage'])
+          
+        }
+        console.log(storage)
+        let hall_config = document.querySelector('.conf-step__wrapper')
+
+        try {
+          hall_config.innerHTML = JSON.parse(res)
+          console.log(res)
+        } catch (error) {
+          console.log(error)
+          hall_config.innerHTML = storage.hall_config
+          console.log(storage.hall_config)
+        }
+    
+          let buttonAcceptin = document.querySelector('.acceptin-button')
+          let chairs = Array.from(
+            document.querySelectorAll('.conf-step__row .conf-step__chair')
+          )
+          buttonAcceptin.setAttribute('disabled', true)
+    
+          chairs.forEach(chair => {
+            chair.addEventListener('click', event => {
+              if (event.target.classList.contains('conf-step__chair_taken')) {
+                return
+              }
+              event.target.classList.toggle('conf-step__chair_selected')
+              let chairsSelected = Array.from(
+                document.querySelectorAll(
+                  '.conf-step__row .conf-step__chair_selected'
+                )
+              )
+              if (chairsSelected.length > 0) {
+                buttonAcceptin.removeAttribute('disabled')
+              } else {
+                buttonAcceptin.setAttribute('disabled', true)
+              }
+            })
+          })
+    
+          buttonAcceptin.addEventListener('click', event => {
+            event.preventDefault()
+    
+            let selectedPlaces = Array()
+            let rows = Array.from(document.getElementsByClassName('conf-step__row'))
+    
+            for (let i = 0; i < rows.length; i++) {
+              let spanPlaces = Array.from(
+                rows[i].getElementsByClassName('conf-step__chair')
+              )
+              for (let j = 0; j < spanPlaces.length; j++) {
+                if (spanPlaces[j].classList.contains('conf-step__chair_selected')) {
+                  let typePlace = spanPlaces[j].classList.contains(
+                    'conf-step__chair_standart'
+                  )
+                    ? 'standart'
+                    : 'vip'
+                  selectedPlaces.push({
+                    row: i + 1,
+                    place: j + 1,
+                    type: typePlace
+                  })
+                }
+              }
+            }
+    
+        hall_config = document.querySelector('.conf-step__wrapper').innerHTML;
+        localStorage.clear();
+        localStorage['hall_config'] = JSON.stringify(hall_config);
+        localStorage['places'] = JSON.stringify(selectedPlaces);
+         localStorage['storage'] = JSON.stringify(storage)
+        localStorage['date'] = date
+      
+        window.location.href = "payment.html?"+this.hallKey;
+    
+          })
+
+          i = storage.s
     const str = '2023-04-26'
     let date = localStorage['date']
     console.log(date)
@@ -462,13 +723,13 @@ res.halls.result[h].hall_price_vip,
     if (value1 === undefined || value2 === undefined || value3 === undefined) {
       value1 = unixTimestamp
       console.log(value1)
-      value2 = Number(j.replace('"', '').replace('"', ''))
+      value2 = Number(storage.hall_id) //Number(j.replace('"', '').replace('"', ''))
       console.log(value2)
-      value3 = Number(
+      value3 = Number(storage.seance_id)  /*Number(
         JSON.stringify(x.seances.result[i].seance_id)
           .replace('"', '')
           .replace('"', '')
-      )
+      )*/
       console.log(value3)
     }
     return createRequest({
@@ -484,6 +745,7 @@ res.halls.result[h].hall_price_vip,
       }
     })
   }
+}
 
   runReserv (res) {
          console.log(JSON.parse(res))
@@ -579,15 +841,14 @@ document.querySelector(".ticket__info-qr").append(qrcode.result);
     if (value1 === undefined || value2 === undefined || value3 === undefined) {
       value1 = unixTimestamp
       //      console.log(value1)
-      value2 = Number(j.replace('"', '').replace('"', ''))
+      value2 = Number(storage.hall_id) //Number(j.replace('"', '').replace('"', ''))
       console.log(value2)
-      value3 = Number(
+      value3 = Number(storage.seance_id)  /*Number(
         JSON.stringify(x.seances.result[i].seance_id)
           .replace('"', '')
           .replace('"', '')
-      )
-      //    console.log(value3)
-    }
+      )*/
+      console.log(value3)
 
     //`hallConfiguration` - Строка - ***html разметка*** которую следует взять со страницы `hall.html` внутри контейнера с классом `conf-step__wrapper`(см разметку).
     //      let page = window.location.href
@@ -645,6 +906,7 @@ document.querySelector(".ticket__info-qr").append(qrcode.result);
     })
   }
 }
+  }
 
 getReserv (callback = f => f) {
     return createRequest({
