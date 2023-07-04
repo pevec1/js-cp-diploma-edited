@@ -209,19 +209,22 @@ l: l,
                       div.innerHTML = `
                 <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
                       section.appendChild(div)
+                        let ul = document.createElement('ul')
+                          ul.classList.add('movie-seances__list')
+                          let ch=0
                       for (let s = 0; s < res.seances.result.length; s++) {
+                        
                         if (
                           res.seances.result[s].seance_hallid ===
                             res.halls.result[h].hall_id &&
                           res.seances.result[s].seance_filmid ===
                             res.films.result[l].film_id
                         ) {
-                          let ul = document.createElement('ul')
-                          ul.classList.add('movie-seances__list')
-                          ul.innerHTML = ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+                          ch++
+                          ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
 
-                          div.appendChild(ul)
-                          console.log(ul.children[0].children[0].getAttribute('data-timestamp'))
+                          
+                          console.log(ul.children[ch-1].children[0].getAttribute('data-timestamp'))
 
                           let timeSeance = Number(localStorage['date']) + Number(res.seances.result[s].seance_start)*60;
 localStorage['timestamp'] = timeSeance
@@ -231,15 +234,21 @@ localStorage['timestamp'] = timeSeance
                           let timeNow = Number(Math.trunc(+new Date() / 1000))
                           console.log(timeNow)
 
-                          console.log(timeSeance - timeNow)
+                          console.log(timeSeance - timeNow, ch-1)
                                 if ((timeSeance - timeNow) > 0) {
-                            ul.children[0].children[0].classList.remove('acceptin-button-disabled');
+                            ul.children[ch-1].children[0].classList.remove('acceptin-button-disabled');
                           } else {
-                            ul.children[0].children[0].classList.add('acceptin-button-disabled');
+try{                           ul.children[ch-1].children[0].classList.add('acceptin-button-disabled')
+}catch(e){
+  console.log(e)
+  
+}
                           };
           
                         }
                       }
+                      ch=0
+                      div.appendChild(ul)
                     }
                   }
                 }
@@ -358,20 +367,21 @@ l: l,
                             div.innerHTML = `
                       <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
                             section.appendChild(div)
-                            for (let s = 0; s < res.seances.result.length; s++) {
+                            let ul = document.createElement('ul')
+                            ul.classList.add('movie-seances__list')
+                            let ch=0
+                        for (let s = 0; s < res.seances.result.length; s++) {
                               if (
                                 res.seances.result[s].seance_hallid ===
                                   res.halls.result[h].hall_id &&
                                 res.seances.result[s].seance_filmid ===
                                   res.films.result[l].film_id
                               ) {
-                                let ul = document.createElement('ul')
-                                ul.classList.add('movie-seances__list')
-                                ul.innerHTML = ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+                          ch++
+                                ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
 
-                                div.appendChild(ul)
 
-console.log(ul.children[0].children[0].getAttribute('data-timestamp'))
+console.log(ul.children[ch-1].children[0].getAttribute('data-timestamp'))
 
                                 let timeSeance = Number(localStorage['date']) + Number(res.seances.result[s].seance_start)*60;
 localStorage['timestamp'] = timeSeance
@@ -383,13 +393,18 @@ localStorage['timestamp'] = timeSeance
 
                                 console.log(timeSeance - timeNow)
                                       if ((timeSeance - timeNow) > 0) {
-                                  ul.children[0].children[0].classList.remove('acceptin-button-disabled');
+                                  ul.children[ch-1].children[0].classList.remove('acceptin-button-disabled');
                                 } else {
-                                  ul.children[0].children[0].classList.add('acceptin-button-disabled');
+try{                                  ul.children[ch-1].children[0].classList.add('acceptin-button-disabled')
+}catch(e){
+  console.log(e)
+}
                                 };
                       
                               }
                             }
+                            ch=0
+                            div.appendChild(ul)
                           }
                         }
                       }
