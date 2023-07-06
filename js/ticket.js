@@ -1,7 +1,7 @@
 class Destroyer{
     constructor(){
     }
-destroy(){
+destroyer(){
         let sales = JSON.parse(localStorage['sales'])
         localStorage.clear()
         //delete localStorage['list']
@@ -13,4 +13,4 @@ destroy(){
   value.getTicket()
 
 let obj = new Destroyer()
-obj.destroy()
+obj.destroyer()
