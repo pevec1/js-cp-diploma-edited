@@ -1,12 +1,10 @@
 function load () {
   let navDay = new Date()
   navDay = Number(String(navDay.getDate()).padStart(2, '0'))
-  console.log(new Date().getTime())
   var d = new Date()
   let today = new Date()
   today.setHours(0, 0, 0)
   localStorage['day'] = navDay
-  console.log(navDay)
   var d = new Date()
   let resultDate = Number(
     Math.floor(
@@ -17,39 +15,25 @@ function load () {
       ).getTime() / 1000
     )
   )
-  console.log(resultDate)
   d.setDate(d.getDate() - (d.getDay() % 7) + 1)
-  let pn = Number(d.getDate())
+  let pn = Number(today.getDate())
   let real = 0
-  let month
   let nav = document.querySelectorAll('.page-nav__day-number')
+  let week = document.querySelectorAll(".page-nav__day-week");
+  let weekDay = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
   let pagesNav = document.querySelector('.page-nav')
   if (pagesNav) {
     //let movies = document.getElementsByTagName('movie')
     let pages = document.querySelectorAll('.page-nav__day')
     for (let i = 0; i < nav.length; i++) {
-      if (
-        pn + i <
-        numberOfDays(new Date().getFullYear(), new Date().getMonth())
-      ) {
-        month = new Date().getMonth() + 1
-        console.log(month)
-        nav[i].innerText = pn + i
-        nav[i].setAttribute('data-month', month)
-        real = pn + i
-      } else {
-        month = new Date().getMonth() + 2
-        console.log(month)
-        nav[i].innerText =
-          pn -
-          numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-          i
-        nav[i].setAttribute('data-month', month)
-        real =
-          pn -
-          numberOfDays(new Date().getFullYear(), new Date().getMonth() - 1) +
-          i
-      }
+        let day = new Date(today.getTime() + i * 86400000)
+        nav[i].innerHTML = `${day.getDate()},`
+        week[i].innerHTML = `${weekDay[day.getDay()]}`
+     if (weekDay[day.getDay()]=="Сб"||weekDay[day.getDay()]=="Вс"){
+            nav[i].parentNode.classList.add("page-nav__day_weekend")
+        }  
+        real = pn+i
 
       if (real == navDay) {
         nav[i].parentNode.classList.add('page-nav__day_today')
@@ -61,18 +45,13 @@ function load () {
           let clk = ''
           if (nav[i].textContent == real) {
             link.classList.add('page-nav__day_chosen')
-            //          console.log(link.innerText)
             clk = link.innerText
-            console.log(clk)
             let resultDate = link.children[1].textContent
-            console.log(resultDate)
-            month = link.children[1].getAttribute('data-month')
-            console.log(resultDate, month)
             resultDate = Number(
               Math.floor(
                 new Date(
                   new Date().getFullYear(),
-                  month - 1,
+                  new Date().getMonth(),
                   resultDate
                 ).getTime() / 1000
               )
@@ -81,7 +60,7 @@ function load () {
               Math.floor(
                 new Date(
                   new Date().getFullYear(),
-                  month - 1,
+                  new Date().getMonth(),
                   resultDate
                 ).getDate()
               )
@@ -90,13 +69,12 @@ function load () {
               Math.floor(
                 new Date(
                   new Date().getFullYear(),
-                  month - 1,
+                  new Date().getMonth(),
                   resultDate
                 ).getDate()
               )
             )
             localStorage['date'] = resultDate
-            console.log(resultDate)
           }
           for (let link_ of pages) {
             if (link_.innerText != clk) {
@@ -107,11 +85,9 @@ function load () {
       }
     }
 
-    //    let pagesNav = document.querySelector('.page-nav')
   }
   localStorage['day'] = navDay
   localStorage['date'] = resultDate
-  console.log(localStorage['date'])
 }
 
 function numberOfDays (year, month) {

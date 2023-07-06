@@ -33,15 +33,12 @@ class ApiConnect {
   static URL = 'https://jscp-diplom.netoserver.ru/'
   static time (hms) {
     let a = hms.replace('"', '').replace('"', '').split(':')
-    //console.log(a)
     return [a[0], a[1]]
     //return Number(seconds)
   }
 
   saveList (res) {
-    console.log(res)
-    console.log(localStorage['list'])
-    if (localStorage['list'] === undefined) {
+   if (localStorage['list'] === undefined) {
       localStorage['list'] = JSON.stringify(res)
       document.body.innerHTML = ''
       window.location.href = 'index.html'
@@ -57,58 +54,30 @@ class ApiConnect {
 
         let navDay = new Date()
         navDay = Number(String(navDay.getDate()).padStart(2, '0'))
-        console.log(new Date().getTime())
         var d = new Date()
         let today = new Date()
         today.setHours(0, 0, 0)
-        console.log(
-          new Date().getMonth() + 1,
-          numberOfDays(new Date().getFullYear(), new Date().getMonth() + 1)
-        )
         d.setDate(d.getDate() - (d.getDay() % 7) + 1)
-        let pn = Number(d.getDate())
+        let pn = Number(today.getDate())
         let real = 0
-        let month
         let stampDate
         let nav = document.querySelectorAll('.page-nav__day-number')
-        let pagesNav = document.querySelector('.page-nav')
+        let week = document.querySelectorAll(".page-nav__day-week");
+        let weekDay = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+              let pagesNav = document.querySelector('.page-nav')
         if (pagesNav) {
           //let movies = document.getElementsByTagName('movie')
           let pages = document.querySelectorAll('.page-nav__day')
           for (let i = 0; i < nav.length; i++) {
             let day = new Date(today.getTime() + i * 86400000)
-            let timestamp = Math.trunc(day / 1000)
-            if (
-              pn + i <
-              numberOfDays(new Date().getFullYear(), new Date().getMonth())
-            ) {
-              month = new Date().getMonth() + 1
-              console.log(month)
-              nav[i].innerText = pn + i
-              nav[i].setAttribute('data-month', month)
+            nav[i].innerHTML = `${day.getDate()}`
+            week[i].innerHTML = `${weekDay[day.getDay()]}`
+            if (weekDay[day.getDay()]=="Сб"||weekDay[day.getDay()]=="Вс"){
+                nav[i].parentNode.classList.add("page-nav__day_weekend")
+            }  
+          let timestamp = Math.trunc(day / 1000)
               nav[i].setAttribute('data-timestamp', timestamp)
-              real = pn + i
-            } else {
-              month = new Date().getMonth() + 2
-              console.log(month)
-              nav[i].innerText =
-                pn -
-                numberOfDays(
-                  new Date().getFullYear(),
-                  new Date().getMonth() - 1
-                ) +
-                i
-              nav[i].setAttribute('data-month', month)
-              nav[i].setAttribute('data-timestamp', timestamp)
-              real =
-                pn -
-                numberOfDays(
-                  new Date().getFullYear(),
-                  new Date().getMonth() - 1
-                ) +
-                i
-            }
-
+            real = pn+i
             if (real == navDay) {
               nav[i].parentNode.classList.add('page-nav__day_today')
               nav[i].parentNode.classList.add('page-nav__day_chosen')
@@ -194,25 +163,14 @@ class ApiConnect {
                               ch++
                               ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
 
-                              console.log(
-                                ul.children[ch - 1].children[0].getAttribute(
-                                  'data-timestamp'
-                                )
-                              )
 
                               let timeSeance =
                                 Number(localStorage['date']) +
                                 Number(res.seances.result[s].seance_start) * 60
                               localStorage['timestamp'] = timeSeance
-                              console.log(Number(timestamp))
-                              //console.log(e.target.closest('.page-nav__day'))
-                              console.log(timeSeance)
                               let timeNow = Number(
                                 Math.trunc(+new Date() / 1000)
                               )
-                              console.log(timeNow)
-
-                              console.log(timeSeance - timeNow, ch - 1)
                               if (timeSeance - timeNow > 0) {
                                 ul.children[
                                   ch - 1
@@ -244,20 +202,18 @@ class ApiConnect {
               link.addEventListener('click', e => {
                 e.preventDefault()
                 let clk = ''
-                if (nav[i].textContent == real) {
+                try{
+                document.querySelector(".page-nav__day_chosen").classList.remove("page-nav__day_chosen")
+                }catch (e) {
+                }
                   link.classList.add('page-nav__day_chosen')
-                  //          console.log(link.innerText)
-                  clk = link.innerText
-                  console.log(clk)
+                 clk = link.innerText
                   let resultDate = link.children[1].textContent
-                  console.log(resultDate)
-                  month = link.children[1].getAttribute('data-month')
-                  console.log(resultDate, month)
                   let date = Number(
                     Math.floor(
                       new Date(
                         new Date().getFullYear(),
-                        month - 1,
+                        new Date().getMonth(),
                         resultDate
                       ).getTime() / 1000
                     )
@@ -266,7 +222,7 @@ class ApiConnect {
                     Math.floor(
                       new Date(
                         new Date().getFullYear(),
-                        month - 1,
+                        new Date().getMonth(),
                         resultDate
                       ).getDate()
                     )
@@ -276,13 +232,12 @@ class ApiConnect {
                     Math.floor(
                       new Date(
                         new Date().getFullYear(),
-                        month - 1,
+                        new Date().getMonth(),
                         resultDate
                       ).getDate()
                     )
                   )
                   localStorage['date'] = date
-                  console.log(date)
                   stampDate = date
 
                   let main = document.getElementsByTagName('main')[0]
@@ -377,14 +332,6 @@ class ApiConnect {
                                     ch++
                                     ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
 
-                                    console.log(
-                                      ul.children[
-                                        ch - 1
-                                      ].children[0].getAttribute(
-                                        'data-timestamp'
-                                      )
-                                    )
-
                                     let timeSeance =
                                       Number(localStorage['date']) +
                                       Number(
@@ -392,17 +339,9 @@ class ApiConnect {
                                       ) *
                                         60
                                     localStorage['timestamp'] = timeSeance
-                                    console.log(Number(timestamp))
-                                    console.log(
-                                      e.target.closest('.page-nav__day')
-                                    )
-                                    console.log(timeSeance)
                                     let timeNow = Number(
                                       Math.trunc(+new Date() / 1000)
                                     )
-                                    console.log(timeNow)
-
-                                    console.log(timeSeance - timeNow)
                                     if (timeSeance - timeNow > 0) {
                                       ul.children[
                                         ch - 1
@@ -431,12 +370,7 @@ class ApiConnect {
                       }
                     }
                   }
-                }
-                for (let link_ of pages) {
-                  if (link_.innerText != clk) {
-                    link_.classList.remove('page-nav__day_chosen')
-                  }
-                }
+                
               })
             }
           }
@@ -458,14 +392,12 @@ class ApiConnect {
       let info_hall = document.querySelector('.buying__info-hall')
       let hall_config = document.querySelector('.conf-step__wrapper')
       let storage, res
-      console.log(this.hallKey)
       try {
         res = JSON.parse(localStorage['list'])
         storage = JSON.parse(localStorage[this.hallKey])
       } catch (error) {
         storage = JSON.parse(localStorage['storage'])
       }
-      console.log(storage)
       let timestamp =
         Number(localStorage['date']) +
         Number(res.seances.result[storage.s].seance_start) * 60
@@ -522,7 +454,6 @@ class ApiConnect {
       data: 'event=update',
       callback: (err, response) => {
         if (response && response.halls && response.films && response.seances) {
-          //console.log(JSON.parse(JSON.stringify(response)))
           return this.getConfigHall(JSON.parse(JSON.stringify(response)))
         }
         callback.call(this, err, response)
@@ -542,8 +473,6 @@ class ApiConnect {
   }
 
   getSavedHall (res) {
-    console.log('000')
-    console.log(JSON.parse(res))
     let page = window.location.href
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
@@ -557,16 +486,13 @@ class ApiConnect {
       let day = localStorage['day']
       let list = JSON.parse(localStorage['list'])
 
-      console.log(storage)
       let hall_config = document.querySelector('.conf-step__wrapper')
 
       try {
         hall_config.innerHTML = JSON.parse(res)
-        console.log(res)
       } catch (error) {
         console.log(error)
         hall_config.innerHTML = storage.hall_config
-        console.log(storage.hall_config)
       }
 
       let buttonAcceptin = document.querySelector('.acceptin-button')
@@ -635,7 +561,6 @@ class ApiConnect {
   }
 
   getConfigHall (res1, callback = f => f) {
-    console.log(res1)
     let x = res1
     let value1, value2, value3
     let i = 0
@@ -643,22 +568,19 @@ class ApiConnect {
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
       let storage, list
+     let day = localStorage['day']
       try {
         storage = JSON.parse(localStorage[this.hallKey])
         list = JSON.parse(localStorage['list'])
       } catch (error) {
         storage = JSON.parse(localStorage['storage'])
       }
-      console.log(storage)
       let hall_config = document.querySelector('.conf-step__wrapper')
 
       try {
         hall_config.innerHTML = JSON.parse(res)
-        console.log(res)
       } catch (error) {
-        console.log(error)
         hall_config.innerHTML = storage.hall_config
-        console.log(storage.hall_config)
       }
 
       let buttonAcceptin = document.querySelector('.acceptin-button')
@@ -719,6 +641,8 @@ class ApiConnect {
         localStorage['storage'] = JSON.stringify(storage)
         localStorage['list'] = JSON.stringify(list)
         localStorage['date'] = date
+        localStorage['day'] = day
+        
 
         window.location.href = 'payment.html?' + this.hallKey
       })
@@ -726,7 +650,6 @@ class ApiConnect {
       i = storage.s
       const str = '2023-04-26'
       let date = localStorage['date']
-      console.log(date)
       let st, st2
       let timestamp
       let unixTimestamp
@@ -734,28 +657,12 @@ class ApiConnect {
       st = String(JSON.stringify(x.seances.result[i].seance_time))
       st2 = String(JSON.stringify(x.seances.result[i].seance_start))
       j = String(JSON.stringify(x.seances.result[i].seance_hallid))
-      //date.setHours(ApiConnect.time(st)[0])
-      //date.setMinutes(ApiConnect.time(st)[1])
-      //date.setSeconds(0)
-      // timestamp = date.getTime()
-      //console.log(timestamp)
       unixTimestamp =
         Number(localStorage['date']) +
         Number(st2.replace('"', '').replace('"', '')) * 60
-      //unixTimestamp = Number(Math.floor(Date.now()/1000))+Number(st2.replace('"','').replace('"',''))*60+60*60*24
-      console.log(unixTimestamp)
-      console.log(date)
-      //unixTimestamp = date
-      value1 = unixTimestamp
-      console.log(value1)
-      value2 = Number(storage.hall_id) //Number(j.replace('"', '').replace('"', ''))
-      console.log(value2)
-      value3 = Number(storage.seance_id) /*Number(
-          JSON.stringify(x.seances.result[i].seance_id)
-            .replace('"', '')
-            .replace('"', '')
-        )*/
-      console.log(value3)
+     value1 = unixTimestamp
+      value2 = Number(storage.hall_id) 
+      value3 = Number(storage.seance_id) 
 
       return createRequest({
         method: 'POST',
@@ -773,7 +680,6 @@ class ApiConnect {
   }
 
   saveSales (res) {
-    console.log(JSON.parse(res))
     localStorage['sales'] = res
     document.body.innerHTML = ''
     window.location.href = 'ticket.html'
@@ -784,7 +690,6 @@ class ApiConnect {
     if (page.includes('ticket.html')) {
       let storage = JSON.parse(localStorage['storage'])
       let list = JSON.parse(localStorage['list'])
-      console.log(storage)
       let salesPlaces = JSON.parse(localStorage['places'])
       let date = localStorage['date']
       let day = localStorage['day']
@@ -828,19 +733,15 @@ class ApiConnect {
   }
 
   getPayment (res2, callback = f => f) {
-    // console.log(res1)
-    //  console.log(res2)
     let x = res2
     let i
     let page = window.location.href
     if (page.includes('payment.html')) {
       let storage = JSON.parse(localStorage['storage'])
-      console.log(storage)
       i = storage.s
 
       const str = '2023-04-26'
       let date = localStorage['date']
-      console.log(date)
       let st, st2
       let timestamp
       let unixTimestamp
@@ -848,36 +749,17 @@ class ApiConnect {
       st = String(JSON.stringify(x.seances.result[i].seance_time))
       st2 = String(JSON.stringify(x.seances.result[i].seance_start))
       j = String(JSON.stringify(x.seances.result[i].seance_hallid))
-      //date.setHours(ApiConnect.time(st)[0])
-      //date.setMinutes(ApiConnect.time(st)[1])
-      //date.setSeconds(0)
-      // timestamp = date.getTime()
-      //console.log(timestamp)
       unixTimestamp =
         Number(localStorage['date']) +
         Number(st2.replace('"', '').replace('"', '')) * 60
-      //unixTimestamp = Number(Math.floor(Date.now()/1000))+Number(st2.replace('"','').replace('"',''))*60+60*60*24
-      console.log(unixTimestamp)
-      console.log(date)
-      //unixTimestamp = date
       let value1, value2, value3, value4
       value1 = unixTimestamp
-      //      console.log(value1)
-      value2 = Number(storage.hall_id) //Number(j.replace('"', '').replace('"', ''))
-      console.log(value2)
-      value3 = Number(storage.seance_id) /*Number(
-          JSON.stringify(x.seances.result[i].seance_id)
-            .replace('"', '')
-            .replace('"', '')
-        )*/
-      console.log(value3)
+      value2 = Number(storage.hall_id)
+      value3 = Number(storage.seance_id) 
 
-      //`hallConfiguration` - Строка - ***html разметка*** которую следует взять со страницы `hall.html` внутри контейнера с классом `conf-step__wrapper`(см разметку).
-      //      let page = window.location.href
       if (page.includes('payment.html')) {
         this.hallKey = window.location.search.substring(1)
         let storage = JSON.parse(localStorage['storage'])
-        console.log(storage)
         i = storage.s
         let salesPlaces = JSON.parse(localStorage['places'])
         let date = localStorage['date']
@@ -918,7 +800,6 @@ class ApiConnect {
             /selected/g,
             'taken'
           )
-          console.log(value4) //
 
           return createRequest({
             method: 'POST',
@@ -927,7 +808,6 @@ class ApiConnect {
             data: `event=sale_add&timestamp=${value1}&hallId=${value2}&seanceId=${value3}&hallConfiguration=${value4}`,
             callback: (err, response) => {
               if (response) {
-                //console.log(this.saveSales( JSON.stringify(response)))
                 return this.saveSales(JSON.stringify(response))
               }
               callback.call(this, err, response)
@@ -945,7 +825,6 @@ class ApiConnect {
       data: 'event=update',
       callback: (err, response) => {
         if (response && response.halls && response.films && response.seances) {
-          //console.log(this.getPayment(JSON.parse(JSON.stringify(response))))
           return this.getPayment(JSON.parse(JSON.stringify(response)))
         }
         callback.call(this, err, response)
@@ -953,8 +832,6 @@ class ApiConnect {
     })
   }
 }
-// здесь перечислены все возможные параметры для функции
-//createRequest()
 
 let value = new ApiConnect()
 let i = -1
@@ -963,6 +840,3 @@ if (localStorage['list'] === undefined) {
   i = 1
 }
 
-//value.saveSales(value.getReserv(value.getConfig()))
-//
-// 1686640200, 71, 62
