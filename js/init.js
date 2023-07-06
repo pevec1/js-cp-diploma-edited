@@ -95,4 +95,7 @@ function numberOfDays (year, month) {
   return d.getDate()
 }
 
+if (localStorage['sales']) {
+    localStorage.clear()
+}
 load()

@@ -835,7 +835,7 @@ class ApiConnect {
 
 let value = new ApiConnect()
 let i = -1
-if (localStorage['list'] === undefined) {
+if (localStorage['list'] === undefined ) {
   value.getList()
   i = 1
 }
