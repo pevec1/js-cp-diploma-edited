@@ -96,6 +96,6 @@ function numberOfDays (year, month) {
 }
 
 if (localStorage['sales']) {
-    localStorage.clear()
+    delete localStorage['sales']
 }
 load()
