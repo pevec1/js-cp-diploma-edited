@@ -48,7 +48,6 @@ class ApiConnect {
   getIndexPage () {
     let res
     let page = window.location.href
-    if (page.includes('index.html')) {
       try {
         res = JSON.parse(localStorage['list'])
 
@@ -381,7 +380,6 @@ class ApiConnect {
         console.log(error)
         location.reload()
       }
-    }
   }
 
   getHall () {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script src="js/createRequest.js"></script>
+<script>
+createRequest({
+      method: 'POST',
+      responseType: 'json',
+      async: true,
+      data: 'event=update',
+      callback: (err, response) => {
+        if (response && response.halls && response.films && response.seances) {
+          console.log(JSON.parse(JSON.stringify(response)))
+          console.log(this)
+        } else{
+        console.log(err)
+        }
+      }
+    })
+
+</script>
+    
+</body>
+</html>

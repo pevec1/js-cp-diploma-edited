@@ -1,3 +1,4 @@
+console.log(this)
 function load () {
   let navDay = new Date()
   navDay = Number(String(navDay.getDate()).padStart(2, '0'))
