@@ -1,6 +1,8 @@
 console.log(this)
+if(!window.location.href.includes('index.html')){
 window.location.href = "index.html"
 console.log(window.location.href)
+}
 function load () {
   let navDay = new Date()
   navDay = Number(String(navDay.getDate()).padStart(2, '0'))
