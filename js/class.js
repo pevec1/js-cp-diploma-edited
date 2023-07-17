@@ -562,6 +562,7 @@ class ApiConnect {
         localStorage['list'] = JSON.stringify(ApiConnect.res)
         document.body.innerHTML = ''
         window.location.href = 'index.html'
+      }
   }
 }
 
