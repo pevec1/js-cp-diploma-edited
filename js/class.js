@@ -38,201 +38,190 @@ class ApiConnect {
   }
 
   saveList (res) {
-    if (localStorage['list'] === undefined) {
-      try {
-        localStorage['list'] = JSON.stringify(res)
-        document.body.innerHTML = ''
-        window.location.href = 'index.html'
-      } catch (e) {
-        let res = {
-          halls: {
-            result: [
-              {
-                hall_id: '71',
-                hall_name: 'Зал1',
-                hall_rows: '10',
-                hall_places: '10',
-                hall_config:
-                  '<div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__hall-wrapper__save-status"></div>',
-                hall_price_standart: '100',
-                hall_price_vip: '350',
-                hall_open: '1'
-              },
-              {
-                hall_id: '59',
-                hall_name: 'Зал2',
-                hall_rows: '10',
-                hall_places: '10',
-                hall_config:
-                  '<div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__hall-wrapper__save-status"></div>',
-                hall_price_standart: '100',
-                hall_price_vip: '350',
-                hall_open: '1'
-              },
-              {
-                hall_id: '66',
-                hall_name: 'Зал3',
-                hall_rows: '10',
-                hall_places: '10',
-                hall_config:
-                  '<div class="conf-step__row"><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__hall-wrapper__save-status"></div>',
-                hall_price_standart: '100',
-                hall_price_vip: '350',
-                hall_open: '1'
-              },
-              {
-                hall_id: '72',
-                hall_name: 'Зал4',
-                hall_rows: '10',
-                hall_places: '10',
-                hall_config:
-                  '<div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__row"><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span></div><div class="conf-step__hall-wrapper__save-status"></div>',
-                hall_price_standart: '100',
-                hall_price_vip: '350',
-                hall_open: '0'
-              }
+   if (localStorage['list'] === undefined) {
+    try{
+      localStorage['list'] = JSON.stringify(res)
+      document.body.innerHTML = ''
+      window.location.href = 'index.html'
+    } catch(e){
+      let res=  {
+        "halls": {
+            "result": [
+                {
+                    "hall_id": "71",
+                    "hall_name": "Зал1",
+                    "hall_rows": "10",
+                    "hall_places": "10",
+                    "hall_config": "<div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__hall-wrapper__save-status\"></div>",
+                    "hall_price_standart": "100",
+                    "hall_price_vip": "350",
+                    "hall_open": "1"
+                },
+                {
+                    "hall_id": "59",
+                    "hall_name": "Зал2",
+                    "hall_rows": "10",
+                    "hall_places": "10",
+                    "hall_config": "<div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__hall-wrapper__save-status\"></div>",
+                    "hall_price_standart": "100",
+                    "hall_price_vip": "350",
+                    "hall_open": "1"
+                },
+                {
+                    "hall_id": "66",
+                    "hall_name": "Зал3",
+                    "hall_rows": "10",
+                    "hall_places": "10",
+                    "hall_config": "<div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_vip\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_disabled\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__hall-wrapper__save-status\"></div>",
+                    "hall_price_standart": "100",
+                    "hall_price_vip": "350",
+                    "hall_open": "1"
+                },
+                {
+                    "hall_id": "72",
+                    "hall_name": "Зал4",
+                    "hall_rows": "10",
+                    "hall_places": "10",
+                    "hall_config": "<div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__row\"><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span><span class=\"conf-step__chair conf-step__chair_standart\"></span></div><div class=\"conf-step__hall-wrapper__save-status\"></div>",
+                    "hall_price_standart": "100",
+                    "hall_price_vip": "350",
+                    "hall_open": "0"
+                }
             ],
-            err: 0,
-            errMessage: ''
-          },
-          films: {
-            result: [
-              {
-                film_id: '98',
-                film_name: 'Аватар: Путь воды (2022)',
-                film_duration: '192',
-                film_description:
-                  'После принятия образа аватара солдат Джейк Салли становится предводителем народа на-ви и берет на себя миссию по защите новых друзей от корыстных бизнесменов с Земли. Теперь ему есть за кого бороться — с Джейком его прекрасная возлюбленная Нейтири. Когда на Пандору возвращаются до зубов вооруженные земляне, Джейк готов дать им отпор.',
-                film_origin: 'США',
-                film_poster:
-                  'https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/98.png'
-              },
-              {
-                film_id: '101',
-                film_name: 'Вызов',
-                film_duration: '164',
-                film_description:
-                  'Торакальный хирург Женя за месяц должна подготовиться к космическому полету и отправиться на МКС, чтобы спасти космонавта. Удастся ли ей справиться с испытаниями? Сможет ли она преодолеть неуверенность и страхи? Получится ли у нее провести сложнейшую операцию в условиях невесомости, от которой зависят шансы космонавта вернуться на Землю живым?',
-                film_origin: 'Россия',
-                film_poster:
-                  'https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/101.png'
-              },
-              {
-                film_id: '99',
-                film_name: 'Джон Уик 4',
-                film_duration: '169',
-                film_description:
-                  'Джон Уик находит способ одержать победу над Правлением Кланов. Однако, прежде чем он сможет заслужить свою свободу, ему предстоит сразиться с новым врагом и его могущественными союзниками.',
-                film_origin: 'США',
-                film_poster:
-                  'https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/99.png'
-              },
-              {
-                film_id: '100',
-                film_name: 'Кот в сапогах 2: Последнее желание',
-                film_duration: '102',
-                film_description:
-                  'Промотав восемь жизней из девяти и до смерти испугавшись пришедшего за ним волка-охотника за головами, Кот в сапогах внимает совету врача и заселяется в дом местной кошатницы. Там он смиряется с установленными порядками, отращивает бороду и теряет тягу к подвигам и приключениям, но только до тех пор, пока не узнаёт о волшебной карте, которая указывает путь к где-то упавшей Звезде желаний. Кот в сапогах твёрдо решает отыскать Звезду, чтобы вернуть свои жизни, и в компании притворявшегося кошачьим пёсика отправляется красть карту у известного коллекционера волшебных предметов Джека Хорнера.\n\n',
-                film_origin: 'США, Япония',
-                film_poster:
-                  'https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/100.png'
-              }
+            "err": 0,
+            "errMessage": ""
+        },
+        "films": {
+            "result": [
+                {
+                    "film_id": "98",
+                    "film_name": "Аватар: Путь воды (2022)",
+                    "film_duration": "192",
+                    "film_description": "После принятия образа аватара солдат Джейк Салли становится предводителем народа на-ви и берет на себя миссию по защите новых друзей от корыстных бизнесменов с Земли. Теперь ему есть за кого бороться — с Джейком его прекрасная возлюбленная Нейтири. Когда на Пандору возвращаются до зубов вооруженные земляне, Джейк готов дать им отпор.",
+                    "film_origin": "США",
+                    "film_poster": "https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/98.png"
+                },
+                {
+                    "film_id": "101",
+                    "film_name": "Вызов",
+                    "film_duration": "164",
+                    "film_description": "Торакальный хирург Женя за месяц должна подготовиться к космическому полету и отправиться на МКС, чтобы спасти космонавта. Удастся ли ей справиться с испытаниями? Сможет ли она преодолеть неуверенность и страхи? Получится ли у нее провести сложнейшую операцию в условиях невесомости, от которой зависят шансы космонавта вернуться на Землю живым?",
+                    "film_origin": "Россия",
+                    "film_poster": "https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/101.png"
+                },
+                {
+                    "film_id": "99",
+                    "film_name": "Джон Уик 4",
+                    "film_duration": "169",
+                    "film_description": "Джон Уик находит способ одержать победу над Правлением Кланов. Однако, прежде чем он сможет заслужить свою свободу, ему предстоит сразиться с новым врагом и его могущественными союзниками.",
+                    "film_origin": "США",
+                    "film_poster": "https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/99.png"
+                },
+                {
+                    "film_id": "100",
+                    "film_name": "Кот в сапогах 2: Последнее желание",
+                    "film_duration": "102",
+                    "film_description": "Промотав восемь жизней из девяти и до смерти испугавшись пришедшего за ним волка-охотника за головами, Кот в сапогах внимает совету врача и заселяется в дом местной кошатницы. Там он смиряется с установленными порядками, отращивает бороду и теряет тягу к подвигам и приключениям, но только до тех пор, пока не узнаёт о волшебной карте, которая указывает путь к где-то упавшей Звезде желаний. Кот в сапогах твёрдо решает отыскать Звезду, чтобы вернуть свои жизни, и в компании притворявшегося кошачьим пёсика отправляется красть карту у известного коллекционера волшебных предметов Джека Хорнера.\n\n",
+                    "film_origin": "США, Япония",
+                    "film_poster": "https://jscp-diplom.netoserver.ru/jscp-diplom/img/posters/100.png"
+                }
             ],
-            err: 0,
-            errMessage: ''
-          },
-          seances: {
-            result: [
-              {
-                seance_id: '71',
-                seance_hallid: '72',
-                seance_filmid: '100',
-                seance_time: '09:00',
-                seance_start: '540',
-                seance_end: '642'
-              },
-              {
-                seance_id: '65',
-                seance_hallid: '59',
-                seance_filmid: '99',
-                seance_time: '10:00',
-                seance_start: '600',
-                seance_end: '769'
-              },
-              {
-                seance_id: '67',
-                seance_hallid: '66',
-                seance_filmid: '101',
-                seance_time: '10:00',
-                seance_start: '600',
-                seance_end: '764'
-              },
-              {
-                seance_id: '62',
-                seance_hallid: '71',
-                seance_filmid: '98',
-                seance_time: '10:10',
-                seance_start: '610',
-                seance_end: '802'
-              },
-              {
-                seance_id: '69',
-                seance_hallid: '66',
-                seance_filmid: '99',
-                seance_time: '12:50',
-                seance_start: '770',
-                seance_end: '939'
-              },
-              {
-                seance_id: '63',
-                seance_hallid: '71',
-                seance_filmid: '99',
-                seance_time: '14:20',
-                seance_start: '860',
-                seance_end: '1029'
-              },
-              {
-                seance_id: '66',
-                seance_hallid: '59',
-                seance_filmid: '100',
-                seance_time: '15:30',
-                seance_start: '930',
-                seance_end: '1032'
-              },
-              {
-                seance_id: '70',
-                seance_hallid: '66',
-                seance_filmid: '98',
-                seance_time: '16:00',
-                seance_start: '960',
-                seance_end: '1152'
-              },
-              {
-                seance_id: '64',
-                seance_hallid: '71',
-                seance_filmid: '98',
-                seance_time: '17:20',
-                seance_start: '1040',
-                seance_end: '1232'
-              },
-              {
-                seance_id: '68',
-                seance_hallid: '59',
-                seance_filmid: '101',
-                seance_time: '18:00',
-                seance_start: '1080',
-                seance_end: '1244'
-              }
+            "err": 0,
+            "errMessage": ""
+        },
+        "seances": {
+            "result": [
+                {
+                    "seance_id": "71",
+                    "seance_hallid": "72",
+                    "seance_filmid": "100",
+                    "seance_time": "09:00",
+                    "seance_start": "540",
+                    "seance_end": "642"
+                },
+                {
+                    "seance_id": "65",
+                    "seance_hallid": "59",
+                    "seance_filmid": "99",
+                    "seance_time": "10:00",
+                    "seance_start": "600",
+                    "seance_end": "769"
+                },
+                {
+                    "seance_id": "67",
+                    "seance_hallid": "66",
+                    "seance_filmid": "101",
+                    "seance_time": "10:00",
+                    "seance_start": "600",
+                    "seance_end": "764"
+                },
+                {
+                    "seance_id": "62",
+                    "seance_hallid": "71",
+                    "seance_filmid": "98",
+                    "seance_time": "10:10",
+                    "seance_start": "610",
+                    "seance_end": "802"
+                },
+                {
+                    "seance_id": "69",
+                    "seance_hallid": "66",
+                    "seance_filmid": "99",
+                    "seance_time": "12:50",
+                    "seance_start": "770",
+                    "seance_end": "939"
+                },
+                {
+                    "seance_id": "63",
+                    "seance_hallid": "71",
+                    "seance_filmid": "99",
+                    "seance_time": "14:20",
+                    "seance_start": "860",
+                    "seance_end": "1029"
+                },
+                {
+                    "seance_id": "66",
+                    "seance_hallid": "59",
+                    "seance_filmid": "100",
+                    "seance_time": "15:30",
+                    "seance_start": "930",
+                    "seance_end": "1032"
+                },
+                {
+                    "seance_id": "70",
+                    "seance_hallid": "66",
+                    "seance_filmid": "98",
+                    "seance_time": "16:00",
+                    "seance_start": "960",
+                    "seance_end": "1152"
+                },
+                {
+                    "seance_id": "64",
+                    "seance_hallid": "71",
+                    "seance_filmid": "98",
+                    "seance_time": "17:20",
+                    "seance_start": "1040",
+                    "seance_end": "1232"
+                },
+                {
+                    "seance_id": "68",
+                    "seance_hallid": "59",
+                    "seance_filmid": "101",
+                    "seance_time": "18:00",
+                    "seance_start": "1080",
+                    "seance_end": "1244"
+                }
             ],
-            err: 0,
-            errMessage: ''
-          }
+            "err": 0,
+            "errMessage": ""
         }
-        localStorage['list'] = res
-        document.body.innerHTML = ''
-        window.location.href = 'index.html'
-      }
     }
+    localStorage['list'] = JSON.stringify(res)
+    document.body.innerHTML = ''
+    window.location.href = 'index.html'
+
+    }
+  }
   }
 
   getIndexPage () {
@@ -252,9 +241,9 @@ class ApiConnect {
         let real = 0
         let stampDate
         let nav = document.querySelectorAll('.page-nav__day-number')
-        let week = document.querySelectorAll('.page-nav__day-week')
-        let weekDay = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
-        let pagesNav = document.querySelector('.page-nav')
+        let week = document.querySelectorAll(".page-nav__day-week");
+        let weekDay = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+              let pagesNav = document.querySelector('.page-nav')
         if (pagesNav) {
           //let movies = document.getElementsByTagName('movie')
           let pages = document.querySelectorAll('.page-nav__day')
@@ -262,15 +251,12 @@ class ApiConnect {
             let day = new Date(today.getTime() + i * 86400000)
             nav[i].innerHTML = `${day.getDate()}`
             week[i].innerHTML = `${weekDay[day.getDay()]}`
-            if (
-              weekDay[day.getDay()] == 'Сб' ||
-              weekDay[day.getDay()] == 'Вс'
-            ) {
-              nav[i].parentNode.classList.add('page-nav__day_weekend')
-            }
-            let timestamp = Math.trunc(day / 1000)
-            nav[i].setAttribute('data-timestamp', timestamp)
-            real = pn + i
+            if (weekDay[day.getDay()]=="Сб"||weekDay[day.getDay()]=="Вс"){
+                nav[i].parentNode.classList.add("page-nav__day_weekend")
+            }  
+          let timestamp = Math.trunc(day / 1000)
+              nav[i].setAttribute('data-timestamp', timestamp)
+            real = pn+i
             if (real == navDay) {
               nav[i].parentNode.classList.add('page-nav__day_today')
               nav[i].parentNode.classList.add('page-nav__day_chosen')
@@ -356,6 +342,7 @@ class ApiConnect {
                               ch++
                               ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
 
+
                               let timeSeance =
                                 Number(localStorage['date']) +
                                 Number(res.seances.result[s].seance_start) * 60
@@ -394,56 +381,55 @@ class ApiConnect {
               link.addEventListener('click', e => {
                 e.preventDefault()
                 let clk = ''
-                try {
-                  document
-                    .querySelector('.page-nav__day_chosen')
-                    .classList.remove('page-nav__day_chosen')
-                } catch (e) {}
-                link.classList.add('page-nav__day_chosen')
-                clk = link.innerText
-                let resultDate = link.children[1].textContent
-                let date = Number(
-                  Math.floor(
-                    new Date(
-                      new Date().getFullYear(),
-                      new Date().getMonth(),
-                      resultDate
-                    ).getTime() / 1000
+                try{
+                document.querySelector(".page-nav__day_chosen").classList.remove("page-nav__day_chosen")
+                }catch (e) {
+                }
+                  link.classList.add('page-nav__day_chosen')
+                 clk = link.innerText
+                  let resultDate = link.children[1].textContent
+                  let date = Number(
+                    Math.floor(
+                      new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth(),
+                        resultDate
+                      ).getTime() / 1000
+                    )
                   )
-                )
-                navDay = Number(
-                  Math.floor(
-                    new Date(
-                      new Date().getFullYear(),
-                      new Date().getMonth(),
-                      resultDate
-                    ).getDate()
+                  navDay = Number(
+                    Math.floor(
+                      new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth(),
+                        resultDate
+                      ).getDate()
+                    )
                   )
-                )
 
-                localStorage['day'] = Number(
-                  Math.floor(
-                    new Date(
-                      new Date().getFullYear(),
-                      new Date().getMonth(),
-                      resultDate
-                    ).getDate()
+                  localStorage['day'] = Number(
+                    Math.floor(
+                      new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth(),
+                        resultDate
+                      ).getDate()
+                    )
                   )
-                )
-                localStorage['date'] = date
-                stampDate = date
+                  localStorage['date'] = date
+                  stampDate = date
 
-                let main = document.getElementsByTagName('main')[0]
-                if (pagesNav) {
-                  //let movie = document.createElement('section')
-                  let pages = document.querySelectorAll('.page-nav__day')
-                  for (let link of pages) {
-                    if (link.children[1].textContent == localStorage['day']) {
-                      main.innerHTML = ''
-                      for (let l = 0; l < res.films.result.length; l++) {
-                        let section = document.createElement('section')
-                        section.classList.add('movie')
-                        section.innerHTML = `
+                  let main = document.getElementsByTagName('main')[0]
+                  if (pagesNav) {
+                    //let movie = document.createElement('section')
+                    let pages = document.querySelectorAll('.page-nav__day')
+                    for (let link of pages) {
+                      if (link.children[1].textContent == localStorage['day']) {
+                        main.innerHTML = ''
+                        for (let l = 0; l < res.films.result.length; l++) {
+                          let section = document.createElement('section')
+                          section.classList.add('movie')
+                          section.innerHTML = `
                         <div class="movie__info row">
                           <div class="movie__poster col-4">
                             <img class="movie__poster-image" alt="постер" src=${res.films.result[l].film_poster}>
@@ -457,59 +443,10 @@ class ApiConnect {
                             </p>
                           </div>
                         </div>`
-                        main.appendChild(section)
-                        for (let h = 0; h < res.halls.result.length; h++) {
-                          if (res.halls.result[h].hall_open === '1') {
-                            let countSeancesInHall = 0
-                            for (
-                              let s = 0;
-                              s < res.seances.result.length;
-                              s++
-                            ) {
-                              if (
-                                res.seances.result[s].seance_hallid ===
-                                  res.halls.result[h].hall_id &&
-                                res.seances.result[s].seance_filmid ===
-                                  res.films.result[l].film_id
-                              ) {
-                                countSeancesInHall = 1
-                                timestamp =
-                                  Number(localStorage['date']) +
-                                  Number(res.seances.result[s].seance_start) *
-                                    60
-                                localStorage[
-                                  'film=' + l + '&hall=' + h + '&seance=' + s
-                                ] = JSON.stringify({
-                                  film_id: res.films.result[l].film_id,
-                                  film_name: res.films.result[l].film_name,
-                                  hall_id: res.halls.result[h].hall_id,
-                                  hall_name: res.halls.result[h].hall_name,
-                                  hall_config: res.halls.result[h].hall_config,
-                                  hall_price_standart:
-                                    res.halls.result[h].hall_price_standart,
-                                  hall_price_vip:
-                                    res.halls.result[h].hall_price_vip,
-                                  seance_id: res.seances.result[s].seance_id,
-                                  seance_time:
-                                    res.seances.result[s].seance_time,
-                                  seance_start:
-                                    res.seances.result[s].seance_start,
-                                  timestamp: timestamp,
-                                  l: l,
-                                  h: h,
-                                  s: s
-                                })
-                              }
-                            }
-                            if (countSeancesInHall == 1) {
-                              let div = document.createElement('div')
-                              div.classList.add('movie-seances__hall')
-                              div.innerHTML = `
-                        <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
-                              section.appendChild(div)
-                              let ul = document.createElement('ul')
-                              ul.classList.add('movie-seances__list')
-                              let ch = 0
+                          main.appendChild(section)
+                          for (let h = 0; h < res.halls.result.length; h++) {
+                            if (res.halls.result[h].hall_open === '1') {
+                              let countSeancesInHall = 0
                               for (
                                 let s = 0;
                                 s < res.seances.result.length;
@@ -521,45 +458,98 @@ class ApiConnect {
                                   res.seances.result[s].seance_filmid ===
                                     res.films.result[l].film_id
                                 ) {
-                                  ch++
-                                  ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
-
-                                  let timeSeance =
+                                  countSeancesInHall = 1
+                                  timestamp =
                                     Number(localStorage['date']) +
                                     Number(res.seances.result[s].seance_start) *
                                       60
-                                  localStorage['timestamp'] = timeSeance
-                                  let timeNow = Number(
-                                    Math.trunc(+new Date() / 1000)
-                                  )
-                                  if (timeSeance - timeNow > 0) {
-                                    ul.children[
-                                      ch - 1
-                                    ].children[0].classList.remove(
-                                      'acceptin-button-disabled'
+                                  localStorage[
+                                    'film=' + l + '&hall=' + h + '&seance=' + s
+                                  ] = JSON.stringify({
+                                    film_id: res.films.result[l].film_id,
+                                    film_name: res.films.result[l].film_name,
+                                    hall_id: res.halls.result[h].hall_id,
+                                    hall_name: res.halls.result[h].hall_name,
+                                    hall_config:
+                                      res.halls.result[h].hall_config,
+                                    hall_price_standart:
+                                      res.halls.result[h].hall_price_standart,
+                                    hall_price_vip:
+                                      res.halls.result[h].hall_price_vip,
+                                    seance_id: res.seances.result[s].seance_id,
+                                    seance_time:
+                                      res.seances.result[s].seance_time,
+                                    seance_start:
+                                      res.seances.result[s].seance_start,
+                                    timestamp: timestamp,
+                                    l: l,
+                                    h: h,
+                                    s: s
+                                  })
+                                }
+                              }
+                              if (countSeancesInHall == 1) {
+                                let div = document.createElement('div')
+                                div.classList.add('movie-seances__hall')
+                                div.innerHTML = `
+                        <h3 class="movie-seances__hall-title">Зал ${h + 1}</h3>`
+                                section.appendChild(div)
+                                let ul = document.createElement('ul')
+                                ul.classList.add('movie-seances__list')
+                                let ch = 0
+                                for (
+                                  let s = 0;
+                                  s < res.seances.result.length;
+                                  s++
+                                ) {
+                                  if (
+                                    res.seances.result[s].seance_hallid ===
+                                      res.halls.result[h].hall_id &&
+                                    res.seances.result[s].seance_filmid ===
+                                      res.films.result[l].film_id
+                                  ) {
+                                    ch++
+                                    ul.innerHTML += ` <li class="movie-seances__time-block"><a class="movie-seances__time" href="hall.html?film=${l}&hall=${h}&seance=${s}">${res.seances.result[s].seance_time}</a></li>`
+
+                                    let timeSeance =
+                                      Number(localStorage['date']) +
+                                      Number(
+                                        res.seances.result[s].seance_start
+                                      ) *
+                                        60
+                                    localStorage['timestamp'] = timeSeance
+                                    let timeNow = Number(
+                                      Math.trunc(+new Date() / 1000)
                                     )
-                                  } else {
-                                    try {
+                                    if (timeSeance - timeNow > 0) {
                                       ul.children[
                                         ch - 1
-                                      ].children[0].classList.add(
+                                      ].children[0].classList.remove(
                                         'acceptin-button-disabled'
                                       )
-                                    } catch (e) {
-                                      console.log(e)
+                                    } else {
+                                      try {
+                                        ul.children[
+                                          ch - 1
+                                        ].children[0].classList.add(
+                                          'acceptin-button-disabled'
+                                        )
+                                      } catch (e) {
+                                        console.log(e)
+                                      }
                                     }
                                   }
                                 }
+                                ch = 0
+                                div.appendChild(ul)
                               }
-                              ch = 0
-                              div.appendChild(ul)
                             }
                           }
                         }
                       }
                     }
                   }
-                }
+                
               })
             }
           }
@@ -570,8 +560,8 @@ class ApiConnect {
         console.log(error)
         location.reload()
       }
-    }
   }
+}
 
   getHall () {
     let page = window.location.href
@@ -758,7 +748,7 @@ class ApiConnect {
     if (page.includes('hall.html')) {
       this.hallKey = window.location.search.substring(1)
       let storage, list
-      let day = localStorage['day']
+     let day = localStorage['day']
       try {
         storage = JSON.parse(localStorage[this.hallKey])
         list = JSON.parse(localStorage['list'])
@@ -832,6 +822,7 @@ class ApiConnect {
         localStorage['list'] = JSON.stringify(list)
         localStorage['date'] = date
         localStorage['day'] = day
+        
 
         window.location.href = 'payment.html?' + this.hallKey
       })
@@ -849,9 +840,9 @@ class ApiConnect {
       unixTimestamp =
         Number(localStorage['date']) +
         Number(st2.replace('"', '').replace('"', '')) * 60
-      value1 = unixTimestamp
-      value2 = Number(storage.hall_id)
-      value3 = Number(storage.seance_id)
+     value1 = unixTimestamp
+      value2 = Number(storage.hall_id) 
+      value3 = Number(storage.seance_id) 
 
       return createRequest({
         method: 'POST',
@@ -944,7 +935,7 @@ class ApiConnect {
       let value1, value2, value3, value4
       value1 = unixTimestamp
       value2 = Number(storage.hall_id)
-      value3 = Number(storage.seance_id)
+      value3 = Number(storage.seance_id) 
 
       if (page.includes('payment.html')) {
         this.hallKey = window.location.search.substring(1)
@@ -1024,7 +1015,8 @@ class ApiConnect {
 
 let value = new ApiConnect()
 let i = -1
-if (localStorage['list'] === undefined) {
+if (localStorage['list'] === undefined ) {
   value.getList()
   i = 1
 }
+
