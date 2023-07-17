@@ -1,4 +1,5 @@
 console.log(this)
+window.location.href = "index.html"
 console.log(window.location.href)
 function load () {
   let navDay = new Date()
